@@ -5,7 +5,7 @@ def setupJammer(idx_value, mdm_rate_jammer):
     '''Used to setup jammer with second card for a Rolling Code attack or single for other attacks'''
     j = RfCat(idx=idx_value)
     j.setMdmModulation(MOD_ASK_OOK)
-    j.setMdmDRate(4800)# how long each bit is transmited for
+    j.setMdmDRate(mdm_rate_jammer)# how long each bit is transmited for
     j.setMdmChanBW(60000)# how wide channel is
     j.setMdmChanSpc(24000)
     j.setMaxPower()
