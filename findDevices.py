@@ -9,30 +9,28 @@ def bruteForceFreq(d, starting_frequency, interval):
        EX: 315000000, 50000'''
     d.setFreq(starting_frequency)
     current_freq = starting_frequency
-    try:
-        while True:
-            print "Currently Scanning: " + str(current_freq)+ " To cancel hit CTRL-Z and unplug yardstick"
-            sniffFrequency(d)
 
-            current_freq +=interval
-            d.setFreq(current_freq)
-    except KeyboardInterrupt:
-        sys.exit()  #does not seem to work.. FTW
+    while not keystop():
+        print "Currently Scanning: " + str(current_freq)+ " To cancel hit enter and wait a few seconds"
+        sniffFrequency(d)
+
+        current_freq +=interval
+        d.setFreq(current_freq)
+
 
 
 def searchKnownFreqs(d, known_frequencies):
     '''Sniffs on a rotating list of known frequences from the default list
         or optionally uses a list provided to the function requires an RFCat class'''
-    try:
-        while True:
 
-            for current_freq in known_frequencies:
-                d.setFreq(current_freq)
-                print "Currently Scanning: " + str(current_freq)+" To cancel hit CTRL-Z and unplug yardstick"
-                print
-                sniffFrequency(d)
-    except KeyboardInterrupt:
-        sys.exit()  #does not seem to work.. FTW
+    while not keystop():
+
+        for current_freq in known_frequencies:
+            d.setFreq(current_freq)
+            print "Currently Scanning: " + str(current_freq)+" To cancel hit enter and wait a few seconds"
+            print
+            sniffFrequency(d)
+
 
 
 def sniffFrequency(d):
