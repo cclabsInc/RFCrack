@@ -13,7 +13,7 @@ A Software Defined Radio Attack Tool
       ___  | _ \ __/ __|_ _ __ _ __| |__
      |___| |   / _| (__| '_/ _` / _| / /
            |_|_\_| \___|_| \__,_\__|_\_\
-    <pre>                           
+    </pre>                           
                                 
     Welcome to RFCrack - A Software Defined Radio Attack Tool 
   
