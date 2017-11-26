@@ -22,9 +22,9 @@ A Software Defined Radio Attack Tool
     or in commercial products. I hold no liability for your actions with this code. 
     Your life choices are your own. 
     
-.
+
     Current supported Functionality: 
-    --------------------------------
+    ---------------------------------
     - Replay attacks -i -f
     - Send Saved Payloads -s -u
     - Rolling code bypass attacks -r -f
