@@ -1,5 +1,5 @@
 
-                   ___                  _        ___            _                  
+                   ___                  _        ___            _
   / __|___ _ _  ___ ___| |___   / __|_____ __ _| |__  ___ _  _ ___
  | (__/ _ \ ' \(_-</ _ \ / -_) | (__/ _ \ V  V / '_ \/ _ \ || (_-<
   \___\___/_||_/__/\___/_\___|  \___\___/\_/\_/|_.__/\___/\_, /__/
@@ -8,8 +8,6 @@
       ___  | _ \ __/ __|_ _ __ _ __| |__
      |___| |   / _| (__| '_/ _` / _| / /
            |_|_\_| \___|_| \__,_\__|_\_\
-
-
 
 
     Welcome to RFCrack - A Software Defined Radio Attack Tool
@@ -23,13 +21,13 @@
     RFCrack was developed for testing RF communications between any physical device that
     communicates over sub Ghz frequencies. IoT devices, Cars, Alarm Systems etc... Testing was
     done with the Yardstick One on OSX, but RFCrack should work fine in linux.
-    Support for other RF related testing will be added as needed in my testing. I am currently researching
-    keyless Entry bypasses. Keyless entry functionality will be added in the future with additional hardware
-    requirements for advanced attacks.
+    Support for other RF related testing will be added as needed in my testing.
+    I am currently researching keyless Entry bypasses. Keyless entry functionality will
+    be added in the future with additional hardware requirements for advanced attacks.
 
-    Feel free to use this software as is for personal use only. Do not use this code in other projects
-    or in commercial products. I hold no liability for your actions with this code.
-    Your life choices are your own.
+    Feel free to use this software as is for personal use only. Do not use this code
+    in other projects or in commercial products. I hold no liability for your actions
+    with this code. Your life choices are your own.
 
 
     Current supported Functionality:
@@ -50,13 +48,13 @@
 
     Usage Examples:
     ---------------
-    Live Replay::              python RFCrack.py -i
-    Rolling Code::             python RFCrack.py -r -m MOD_2FSK -f 314350000
-    Jamming::                  python RFCrack.py -j -f 314000000
-    Scan common frequencies::  python RFCrack.py -k
-    Scan with your list::      python RFCrack.py -k -z 433000000 314000000 390000000
-    Incremental Scan::         python RFCrack.py -b -v 5000000
-    Send Saved Payload::       python RFCrack.py -s -u ./files/test.cap -f 315000000 -m MOD_ASK_OOK
+    Live Replay:         python RFCrack.py -i
+    Rolling Code:        python RFCrack.py -r -m MOD_2FSK -f 314350000
+    Jamming:             python RFCrack.py -j -f 314000000
+    Scan common freq:    python RFCrack.py -k
+    Scan with your list: python RFCrack.py -k -z 433000000 314000000 390000000
+    Incremental Scan:    python RFCrack.py -b -v 5000000
+    Send Saved Payload:: python RFCrack.py -s -u ./files/test.cap -f 315000000 -m MOD_ASK_OOK
 
     Useful arguments:
     ------------------------
