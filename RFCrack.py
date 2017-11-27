@@ -24,7 +24,6 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Release: 1.0
 
-
     RFCrack was developed for testing RF communications between any physical device that
     communicates over sub Ghz frequencies. IoT devices, Cars, Alarm Systems etc... Testing was
     done with the Yardstick One on OSX, but RFCrack should work fine in linux.
