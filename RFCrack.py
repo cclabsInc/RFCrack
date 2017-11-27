@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
    -----------------------------------------------------------
     Developer: @Ficti0n - CCLabs.io / ConsoleCowboys.com
     Blog: console-cowboys.blogspot.com
-    YouTube Tutorial: <Add Link Here>
+    YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Release: 1.0
 
 
