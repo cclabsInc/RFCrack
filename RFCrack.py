@@ -1,8 +1,10 @@
 
 from rflib import *
-import RFFunctions as tools
+import src.RFFunctions as tools
 import re, time, argparse, textwrap
-import jam, findDevices, attacks
+import src.jam as jam
+import src.findDevices as findDevices
+import src.attacks as attacks
 
 parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDescriptionHelpFormatter, description=textwrap.dedent('''\
 
