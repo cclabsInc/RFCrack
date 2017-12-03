@@ -1,4 +1,4 @@
-Install Pip:
+#Install Pip:
 easy install pip
 
 #Install BitString
