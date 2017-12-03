@@ -3,12 +3,12 @@ import time, re, sys
 
 capture = ""
 
-def bruteForceFreq(d, starting_frequency, interval):
+def bruteForceFreq(d, rf_settings, interval):
     '''Brute Forces frequencies looking for one with data being sent
        Requires a RFCat Class, a starting frequency and the incrementing interval
        EX: 315000000, 50000'''
-    d.setFreq(starting_frequency)
-    current_freq = starting_frequency
+    d.setFreq(rf_settings.frequency)
+    current_freq = rf_settings.frequency
 
     while not keystop():
         print "Currently Scanning: " + str(current_freq)+ " To cancel hit enter and wait a few seconds"

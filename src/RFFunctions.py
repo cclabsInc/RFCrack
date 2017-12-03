@@ -4,7 +4,7 @@ import time
 
 
 #-----------------Start RF Capture ----------------#
-def capturePayload(d, rolling_code, upper_rssi, lower_rssi):
+def capturePayload(d, rolling_code, rf_settings):
     '''Starts a listener and returns a RFrecv capture of your choice and signal strength
     If there is rolling code options sent it will check for valid packets while jammer is running'''
 
@@ -24,7 +24,8 @@ def capturePayload(d, rolling_code, upper_rssi, lower_rssi):
         #This block is used for rolling code things
         if rolling_code and capture:           #If there is a good capture and we are attacking rollingCode execute this block
             print "SIGNAL STRENGTH: " + str(signal_strength)
-            decision = determineRealTransmission(signal_strength, upper_rssi, lower_rssi)
+            print "RF CAPTURE: \n" + capture +"\n"
+            decision = determineRealTransmission(signal_strength, rf_settings)
             if decision:
                 roll_captures.append(capture)  #add key with good decision to the list
                 if roll_count >= 1:            #Check if we have 2 keys and return.
@@ -50,8 +51,8 @@ def capturePayload(d, rolling_code, upper_rssi, lower_rssi):
 
 
 #----------------- Deternmine Real Transmission ----------------#
-def determineRealTransmission(signal_strength, upper_rssi, lower_rssi):
-    if signal_strength > upper_rssi and signal_strength < lower_rssi:
+def determineRealTransmission(signal_strength, rf_settings):
+    if signal_strength > rf_settings.upper_rssi and signal_strength < rf_settings.lower_rssi:
         return True
 
 

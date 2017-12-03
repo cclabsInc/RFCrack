@@ -1,18 +1,22 @@
 from rflib import *
 
 
-def setupJammer(idx_value, baud_rate_jammer):
+def setupJammer(idx_value, rf_settings):
     '''Used to setup jammer with second card for a Rolling Code attack or single for other attacks'''
     j = RfCat(idx=idx_value)
     j.setMdmModulation(MOD_ASK_OOK)
-    j.setMdmDRate(baud_rate_jammer)# how long each bit is transmited for
+    j.setMdmDRate(rf_settings.baud_rate)# how long each bit is transmited for
     j.setMdmChanBW(60000)# how wide channel is
     j.setMdmChanSpc(24000)
     j.setMaxPower()
+    #j.setRFRegister(PA_TABLE0, 0xFF)
+    #j.setRFRegister(PA_TABLE1, 0xFF)
+    j.setRFRegister(PKTCTRL1, 0xFF)
     j.setChannel(0)
     return j
 
-def jamming(j, action, frequency, rolling_code):
+def jamming(j, action, rf_settings, rolling_code, jamming_variance=0):
+    frequency = rf_settings.frequency + jamming_variance
     j.setFreq(frequency)
 
     if (action == "start"):

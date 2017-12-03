@@ -4,15 +4,15 @@ import findDevices, jam
 import time
 
 #-----------------Rolling Code-------------------------#
-def rollingCode(d, frequency, jamming_variance, baud_rate_jammer, rolling_code, upper_rssi, lower_rssi):
+def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
     '''Sets up for a rolling code attack, requires a frequency
     and a RFCat Object'''
 
     print("ROLLING CODE REQUIRES 2 YardSticks Plugged In")
-    j = jam.setupJammer(1, baud_rate_jammer)
+    j = jam.setupJammer(1, rf_settings)
 
-    jam.jamming(j, "start", frequency+jamming_variance, rolling_code)
-    roll_captures, signal_strength = tools.capturePayload(d, rolling_code, upper_rssi, lower_rssi)
+    jam.jamming(j, "start", rf_settings, rolling_code, jamming_variance)
+    roll_captures, signal_strength = tools.capturePayload(d, rolling_code, rf_settings)
     print("Waiting to capture your rolling code transmission")
     print signal_strength
     print roll_captures
@@ -20,7 +20,7 @@ def rollingCode(d, frequency, jamming_variance, baud_rate_jammer, rolling_code, 
     payloads = tools.createBytesFromPayloads(roll_captures)
 
     time.sleep(1)
-    jam.jamming(j, "stop",frequency+jamming_variance, rolling_code)
+    jam.jamming(j, "stop", rf_settings, rolling_code, jamming_variance)
 
     print "Sending First Payload "
     tools.sendTransmission(payloads[0] ,d)
@@ -37,11 +37,11 @@ def rollingCode(d, frequency, jamming_variance, baud_rate_jammer, rolling_code, 
 
 
 #---------------Replay Live Capture----------------------#
-def replayLiveCapture(d, rolling_code, upper_rssi, lower_rssi):
+def replayLiveCapture(d, rolling_code, rf_settings):
     '''Replays a live capture real time, lets you select your capture
     and replay it or save it for later'''
 
-    replay_capture, signal_strength = tools.capturePayload(d,rolling_code, upper_rssi, lower_rssi)
+    replay_capture, signal_strength = tools.capturePayload(d,rolling_code, rf_settings)
     replay_capture = [replay_capture]
 
     response = raw_input( "Replay this capture? (y/n) ")
