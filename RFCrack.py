@@ -112,7 +112,7 @@ parser.add_argument('-L', "--lower_rssi", default=-20, help=argparse.SUPPRESS, t
 parser.add_argument("-F", "--frequency",default=315000000, help=argparse.SUPPRESS, type=int)
 parser.add_argument('-C', "--channel_bandwidth", default=60000, help=argparse.SUPPRESS, type=int)
 parser.add_argument("-M", "--modulation_type",default="MOD_ASK_OOK", help=argparse.SUPPRESS)
-parser.add_argument("-S", "--channel_spacing",default="24000", help=argparse.SUPPRESS,type=int)
+parser.add_argument("-S", "--channel_spacing",default=24000, help=argparse.SUPPRESS,type=int)
 parser.add_argument('-d', "--debug",action='store_true',  help=argparse.SUPPRESS)
 
 
