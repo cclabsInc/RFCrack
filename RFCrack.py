@@ -77,7 +77,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     -F Change the frequency used in attacks
     -U upper_rssi signal strength value for rolling Code
     -L lower.rssi signal strength value for rolling code
-    -S Change Channel Spacing 
+    -S Change Channel Spacing
     -a Jamming frequency variance from sniffer
     -s Send packet from a file source
 
