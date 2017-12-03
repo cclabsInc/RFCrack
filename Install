@@ -20,3 +20,5 @@ pip install libusb
 
 #Plug in your device and run the following to verify:
 rfcat -r
+
+#That should be all you need
