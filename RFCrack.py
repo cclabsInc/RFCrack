@@ -44,7 +44,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
 
 
     Current supported Functionality:
-    ---------------------------------
+    --------------------------------
     - Replay attacks -i -F
     - Send Saved Payloads -s -u
     - Rolling code bypass attacks -r -F -M
