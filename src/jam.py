@@ -7,7 +7,7 @@ def setupJammer(idx_value, rf_settings):
     j.setMdmModulation(MOD_ASK_OOK)
     j.setMdmDRate(rf_settings.baud_rate)# how long each bit is transmited for
     j.setMdmChanBW(60000)# how wide channel is
-    j.setMdmChanSpc(24000)
+    j.setMdmChanSpc(rf_settings.channel_spacing)
     j.setMaxPower()
     #j.setRFRegister(PA_TABLE0, 0xFF)
     #j.setRFRegister(PA_TABLE1, 0xFF)
