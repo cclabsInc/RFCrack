@@ -1,3 +1,4 @@
+from __future__ import print_function
 from rflib import *
 import bitstring
 import time
@@ -23,8 +24,8 @@ def capturePayload(d, rolling_code, rf_settings):
 
         #This block is used for rolling code things
         if rolling_code and capture:           #If there is a good capture and we are attacking rollingCode execute this block
-            print "SIGNAL STRENGTH: " + str(signal_strength)
-            print "RF CAPTURE: \n" + capture +"\n"
+            print("SIGNAL STRENGTH: " + str(signal_strength))
+            print("RF CAPTURE: \n" + capture +"\n")
             decision = determineRealTransmission(signal_strength, rf_settings)
             if decision:
                 roll_captures.append(capture)  #add key with good decision to the list
@@ -38,8 +39,8 @@ def capturePayload(d, rolling_code, rf_settings):
 
         #This block is when just capturing and returning, no rolling code
         elif capture and not rolling_code:
-            print "SIGNAL STRENGTH: " + str(signal_strength)
-            print "RF CAPTURE: \n" + capture +"\n"
+            print("SIGNAL STRENGTH: " + str(signal_strength))
+            print("RF CAPTURE: \n" + capture +"\n")
 
             response = raw_input( "\"Do you want to return the above payload? (y/n)")
             if response.lower() == 'y':
@@ -77,7 +78,7 @@ def printFormatedHex(payload):
 
     formatedPayload = ""
     if (len(payload) % 2 == 0):
-        print "The following payload is currently being formated: " + payload
+        print("The following payload is currently being formated: " + payload)
         iterator = iter(payload)
         for i in iterator:
             formatedPayload += ('\\x'+i + next(iterator))
@@ -104,6 +105,6 @@ def createBytesFromPayloads(payloads):
 #------------Send Transmission--------------------#
 def sendTransmission(payload, d):
     ''' Expects formated data for sending with RFXMIT'''
-    print "Sending payload... "
+    print("Sending payload... ")
     d.RFxmit(payload,10)
-    print 'Transmission Complete'
+    print('Transmission Complete')

@@ -1,3 +1,4 @@
+from __future__ import print_function
 from rflib import *
 import time, re, sys
 
@@ -11,7 +12,7 @@ def bruteForceFreq(d, rf_settings, interval):
     current_freq = rf_settings.frequency
 
     while not keystop():
-        print "Currently Scanning: " + str(current_freq)+ " To cancel hit enter and wait a few seconds"
+        print("Currently Scanning: " + str(current_freq)+ " To cancel hit enter and wait a few seconds")
         sniffFrequency(d)
 
         current_freq +=interval
@@ -27,8 +28,8 @@ def searchKnownFreqs(d, known_frequencies):
 
         for current_freq in known_frequencies:
             d.setFreq(current_freq)
-            print "Currently Scanning: " + str(current_freq)+" To cancel hit enter and wait a few seconds"
-            print
+            print("Currently Scanning: " + str(current_freq)+" To cancel hit enter and wait a few seconds")
+            print()
             sniffFrequency(d)
 
 
@@ -39,7 +40,7 @@ def sniffFrequency(d):
     try:
         y, z = d.RFrecv(timeout=3000)
         capture = y.encode('hex')
-        print capture
+        print(capture)
         #mytime +=1
     except ChipconUsbTimeoutException:
         pass
