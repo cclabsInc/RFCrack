@@ -5,6 +5,11 @@ from . import RFFunctions as tools
 from . import findDevices, jam
 import time
 
+try:
+    raw_input          # Python 2
+except NameError:
+    raw_input = input  # Python 3
+
 #-----------------Rolling Code-------------------------#
 def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
     '''Sets up for a rolling code attack, requires a frequency
