@@ -69,7 +69,8 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Scan common freq:    python RFCrack.py -k
     Scan with your list: python RFCrack.py -k -f 433000000 314000000 390000000
     Incremental Scan:    python RFCrack.py -b -v 5000000
-    Send Saved Payload:: python RFCrack.py -s -u ./files/test.cap -F 315000000 -M MOD_ASK_OOK
+    Send Saved Payload:  python RFCrack.py -s -u ./files/test.cap -F 315000000 -M MOD_ASK_OOK
+    With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -i
 
     Useful arguments:
     ------------------------
@@ -78,9 +79,11 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     -U upper_rssi signal strength value for rolling Code
     -L lower.rssi signal strength value for rolling code
     -S Change Channel Spacing
+    -V Change Deviation of modulation
     -a Jamming frequency variance from sniffer
     -s Send packet from a file source
-
+    -d Save your current device settings into a loadable template
+    -l Load previously saved device configuration with attack
     Other Notes:
     ------------------------
     Captures get saved to ./files directory by default!
@@ -106,6 +109,8 @@ parser.add_argument("-v", "--increment_value", help=argparse.SUPPRESS ,type=int)
 parser.add_argument('-u', "--uploaded_payload",  help=argparse.SUPPRESS)
 parser.add_argument('-f', "--freq_list",nargs='+', type=int, default=[315000000, 433000000], help=argparse.SUPPRESS)
 parser.add_argument('-a', "--jamming_variance", default=80000, help=argparse.SUPPRESS, type=int)
+parser.add_argument('-d', "--save_device_settings",action='store_true', help=argparse.SUPPRESS)
+parser.add_argument('-l', "--load_device_settings", help=argparse.SUPPRESS)
 parser.add_argument('-B', "--baud_rate", default=4800, help=argparse.SUPPRESS, type=int)
 parser.add_argument('-U', "--upper_rssi", default=-100, help=argparse.SUPPRESS, type=int)
 parser.add_argument('-L', "--lower_rssi", default=-20, help=argparse.SUPPRESS, type=int)
@@ -113,12 +118,24 @@ parser.add_argument("-F", "--frequency",default=315000000, help=argparse.SUPPRES
 parser.add_argument('-C', "--channel_bandwidth", default=60000, help=argparse.SUPPRESS, type=int)
 parser.add_argument("-M", "--modulation_type",default="MOD_ASK_OOK", help=argparse.SUPPRESS)
 parser.add_argument("-S", "--channel_spacing",default=24000, help=argparse.SUPPRESS,type=int)
-parser.add_argument('-d', "--debug",action='store_true',  help=argparse.SUPPRESS)
+parser.add_argument("-V", "--deviation", default=0, help=argparse.SUPPRESS,type=int)
 
 
 args = parser.parse_args()
-rf_settings = RFSettings.RFSettings(args.frequency, args.baud_rate, args.channel_bandwidth, args.modulation_type, args.upper_rssi, args.lower_rssi, args.channel_spacing)
 
+
+rf_settings = RFSettings.RFSettings(args.frequency,
+                                    args.baud_rate,
+                                    args.channel_bandwidth,
+                                    args.modulation_type,
+                                    args.upper_rssi,
+                                    args.lower_rssi,
+                                    args.channel_spacing,
+                                    args.deviation)
+if (args.load_device_settings != None):
+    with open(args.load_device_settings) as f:
+        file_data = f.readlines()
+        rf_settings.loadDeviceSettingsTemplate(file_data)
 
 if not args.jammer:
     d = RfCat(idx=0)
@@ -130,9 +147,11 @@ if not args.jammer:
     d.setMdmSyncMode(0)
     d.setChannel(0)
     d.lowball(1)
-    if rf_settings.modulation_type == "MOD_ASK_OOK":
+    if (rf_settings.deviation != 0):
+        d.setMdmDeviatn (rf_settings.deviation)
+    if (rf_settings.modulation_type == "MOD_ASK_OOK"):
         d.setMdmModulation(MOD_ASK_OOK)
-    elif rf_settings.modulation_type == "MOD_2FSK":
+    elif (rf_settings.modulation_type == "MOD_2FSK"):
         d.setMdmModulation(MOD_2FSK)
 
 
@@ -163,5 +182,6 @@ if args.send:
     else:
         attacks.replaySavedCapture(d, args.uploaded_payload)
 
-if args.debug:
-    capture, signal_strength = tools.capturePayload(d, args.rolling_code)
+if args.save_device_settings:
+    device_name = raw_input( "What would you like to name the device template: ")
+    rf_settings.saveDeviceSettingsTemplate(rf_settings, device_name)

@@ -70,6 +70,16 @@ def splitCaptureByZeros(capture):
     return items
 
 
+#------------Split Device Settings Configuration --------------------#
+def parseDeviceSettings(file_data):
+    '''Parse file device configuration and return list'''
+    settings = []
+    for data in file_data:
+        settings.append(re.split(':', data))
+    print settings
+    return settings
+
+
 #------------ Hex conversion function --------------------#
 def printFormatedHex(payload):
     ''' Helper function that takes RFRecv output and returns format hex
