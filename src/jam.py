@@ -1,3 +1,4 @@
+from __future__ import print_function
 from rflib import *
 
 
@@ -20,12 +21,12 @@ def jamming(j, action, rf_settings, rolling_code, jamming_variance=0):
     j.setFreq(frequency)
 
     if (action == "start"):
-        print "Starting Jamming on: " + str(frequency)
+        print("Starting Jamming on: " + str(frequency))
         j.setModeTX() # start transmitting
         if not rolling_code:
             raw_input("Enter to stop jamming")
-            print 'done'
+            print('done')
             j.setModeIDLE()
     if (action == "stop"):
         j.setModeIDLE() # put dongle in idle mode to stop jamming
-        print "Jamming Stopped"
+        print("Jamming Stopped")
