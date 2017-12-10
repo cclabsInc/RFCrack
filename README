@@ -58,7 +58,7 @@
     Scan with your list: python RFCrack.py -k -f 433000000 314000000 390000000
     Incremental Scan:    python RFCrack.py -b -v 5000000
     Send Saved Payload:  python RFCrack.py -s -u ./files/test.cap -F 315000000 -M MOD_ASK_OOK
-    With Loaded Config:  python RFCrack.py -l "./device_templates/doorbell.config" -i
+    With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -i
 
     Useful arguments:
     ------------------------
@@ -72,7 +72,7 @@
     -s Send packet from a file source
     -d Save your current device settings into a loadable template
     -l Load previously saved device configuration with attack
-    
+
     Other Notes:
     ------------------------
     Captures get saved to ./files directory by default!
