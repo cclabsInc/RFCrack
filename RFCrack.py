@@ -148,7 +148,7 @@ if not args.jammer:
     d.setChannel(0)
     d.lowball(1)
     if (rf_settings.deviation != 0):
-        d.setMdmDeviatn (rf_settings.deviation)
+        d.setMdmDeviatn(rf_settings.deviation)
     if (rf_settings.modulation_type == "MOD_ASK_OOK"):
         d.setMdmModulation(MOD_ASK_OOK)
     elif (rf_settings.modulation_type == "MOD_2FSK"):
