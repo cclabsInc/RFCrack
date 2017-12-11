@@ -84,10 +84,12 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     -s Send packet from a file source
     -d Save your current device settings into a loadable template
     -l Load previously saved device configuration with attack
+
     Other Notes:
     ------------------------
     Captures get saved to ./files directory by default!
-
+    Device templates are saved and loaded to ./device_templates by default
+    
     Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
     but it works. Just use the keyfob near the yardsticks. It will also require 2 yardsticks,
     one for sniffing while the other one is jamming.
