@@ -50,7 +50,7 @@ def capturePayload(d, rolling_code, rf_settings):
     return capture, signal_strength
 
 
-#----------------- Deternmine Real Transmission ----------------#
+#----------------- Determine Real Transmission ----------------#
 def determineRealTransmission(signal_strength, rf_settings):
     if signal_strength > rf_settings.upper_rssi and signal_strength < rf_settings.lower_rssi:
         return True
