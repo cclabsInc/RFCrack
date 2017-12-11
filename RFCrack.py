@@ -24,7 +24,8 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
 
     Welcome to RFCrack - A Software Defined Radio Attack Tool
 
-    Developer: @Ficti0n - CCLabs.io / ConsoleCowboys.com
+    Developer: @Ficti0n - http://ConsoleCowboys.com
+    CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Release: 1.1
@@ -89,7 +90,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     ------------------------
     Captures get saved to ./files directory by default!
     Device templates are saved and loaded to ./device_templates by default
-    
+
     Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
     but it works. Just use the keyfob near the yardsticks. It will also require 2 yardsticks,
     one for sniffing while the other one is jamming.

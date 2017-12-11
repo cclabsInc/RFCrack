@@ -12,11 +12,11 @@
 
     Welcome to RFCrack - A Software Defined Radio Attack Tool
 
-    Developer: @Ficti0n - CCLabs.io / ConsoleCowboys.com
+    Developer: @Ficti0n - http://ConsoleCowboys.com
+    CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Release: 1.1
-
 
     RFCrack is my personal RF test bench, it was developed for testing RF communications
     between any physical device that communicates over sub Ghz frequencies. IoT devices,
