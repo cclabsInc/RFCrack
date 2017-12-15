@@ -30,6 +30,8 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Release: 1.1
 
+    Hardware Needed: (1 or 2 of these) 
+    YardStick: https://goo.gl/wd88sr
 
     RFCrack is my personal RF test bench, it was developed for testing RF communications
     between any physical device that communicates over sub Ghz frequencies. IoT devices,
@@ -65,6 +67,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     ---------------
     Live Replay:         python RFCrack.py -i
     Rolling Code:        python RFCrack.py -r -M MOD_2FSK -F 314350000
+    Change RSSI Values:  python RFCrack.py -r -M MOD_2FSK -F 314350000 -U -100 -L -10
     Adjust RSSI Range:   python RFCrack.py -r -U "-75" -L "-5" -M MOD_2FSK -F 314350000
     Jamming:             python RFCrack.py -j -F 314000000
     Scan common freq:    python RFCrack.py -k
