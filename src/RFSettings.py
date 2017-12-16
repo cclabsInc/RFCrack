@@ -12,7 +12,6 @@ class RFSettings():
         self.deviation = deviation
 
     def saveDeviceSettingsTemplate(self, rf_settings, device_name):
-
         with open("./device_templates/"+device_name+".config", 'w') as file:
             for key, value in rf_settings.__dict__.items():
                 if not key.startswith("__"):

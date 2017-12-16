@@ -63,6 +63,7 @@ def replayLiveCapture(d, rolling_code, rf_settings):
 
 #---------------Replay Saved Capture----------------------#
 def replaySavedCapture(d, uploaded_payload):
+    '''Used to import an old capture and replay it from a file'''
     with open(uploaded_payload) as f:
         payloads = f.readlines()
         print payloads
