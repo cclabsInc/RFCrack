@@ -16,6 +16,8 @@ def setupJammer(idx_value, rf_settings):
     return j
 
 def jamming(j, action, rf_settings, rolling_code, jamming_variance=0):
+    '''This is used to Jam freqencies with the parameters you set either
+    stand alone or for rollingcode attacks using jamming variance'''
     frequency = rf_settings.frequency + jamming_variance
     j.setFreq(frequency)
 
