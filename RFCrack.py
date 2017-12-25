@@ -28,9 +28,9 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
-    Release: 1.1
+    Release: 1.2
 
-    Hardware Needed: (1 Yardstick or 2 for RollingCode) 
+    Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
 
     RFCrack is my personal RF test bench, it was developed for testing RF communications
