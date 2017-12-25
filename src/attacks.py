@@ -1,8 +1,8 @@
 
 import RFFunctions as tools
 import findDevices, jam
-import time
-
+import time, sys
+sys.dont_write_bytecode = True
 #-----------------Rolling Code-------------------------#
 def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
     '''Sets up for a rolling code attack, requires a frequency

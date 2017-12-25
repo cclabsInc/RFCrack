@@ -1,3 +1,6 @@
+import sys
+sys.dont_write_bytecode = True
+
 class RFSettings():
     "This class is used to setup RFCat settings needed for listening, jamming and sending"
     def __init__(self, frequency, baud_rate, channel_bandwidth, modulation_type, upper_rssi, lower_rssi, channel_spacing, deviation):

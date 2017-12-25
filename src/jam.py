@@ -1,5 +1,6 @@
 from rflib import *
-
+import sys
+sys.dont_write_bytecode = True
 
 def setupJammer(idx_value, rf_settings):
     '''Used to setup jammer with second card for a Rolling Code attack or single for other attacks'''

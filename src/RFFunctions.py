@@ -1,6 +1,7 @@
 from rflib import *
 import bitstring
-import time
+import time, sys
+sys.dont_write_bytecode = True
 
 
 #-----------------Start RF Capture ----------------#
