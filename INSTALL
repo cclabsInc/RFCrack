@@ -1,10 +1,11 @@
+#RFcrack tested on OSX, should also work fine on linux distros
 #Install Pip:
 easy install pip
 
 #Install BitString
 sudo pip install bitstring
 
-#Install RFCat and pyUSB
+#Install RFCat
 git clone https://github.com/atlas0fd00m/rfcat.git
 cd rfcat/
 sudo python setup.py install
@@ -18,7 +19,7 @@ sudo python setup.py install
 #Install LibUSB
 pip install libusb
 
-#Plug in your device and run the following to verify:
+#Plug in your device and run the following to verify it works:
 rfcat -r
 
 #That should be all you need

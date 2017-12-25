@@ -67,8 +67,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     ---------------
     Live Replay:         python RFCrack.py -i
     Rolling Code:        python RFCrack.py -r -M MOD_2FSK -F 314350000
-    Change RSSI Values:  python RFCrack.py -r -M MOD_2FSK -F 314350000 -U -100 -L -10
-    Adjust RSSI Range:   python RFCrack.py -r -U "-75" -L "-5" -M MOD_2FSK -F 314350000
+    Adjust RSSI Values:  python RFCrack.py -r -M MOD_2FSK -F 314350000 -U -100 -L -10
     Jamming:             python RFCrack.py -j -F 314000000
     Scan common freq:    python RFCrack.py -k
     Scan with your list: python RFCrack.py -k -f 433000000 314000000 390000000
