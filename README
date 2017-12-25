@@ -16,9 +16,9 @@
     CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
-    Release: 1.1
+    Release: 1.2
 
-    Hardware Needed: (1 Yardstick or 2 for RollingCode) 
+    Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
 
     RFCrack is my personal RF test bench, it was developed for testing RF communications
@@ -79,8 +79,10 @@
 
     Other Notes:
     ------------------------
+    Directories Explained: 
     Captures get saved to ./files directory by default!
     Device templates are saved and loaded to ./device_templates by default
+    Scanning logs are saved to ./scanning_logs directory named based on date and time of scanning start
 
     Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
     but it works. Just use the keyfob near the yardsticks. It will also require 2 yardsticks,
