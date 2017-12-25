@@ -79,10 +79,10 @@
 
     Other Notes:
     ------------------------
-    Directories Explained: 
+    Directories Explained:
     Captures get saved to ./files directory by default!
     Device templates are saved and loaded to ./device_templates by default
-    Scanning logs are saved to ./scanning_logs directory named based on date and time of scanning start
+    Scanning logs are saved to ./scanning_logs named based on date and time of scanning start
 
     Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
     but it works. Just use the keyfob near the yardsticks. It will also require 2 yardsticks,
