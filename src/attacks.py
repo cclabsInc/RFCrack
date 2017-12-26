@@ -30,9 +30,9 @@ def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
 
     else:
         response = raw_input( "Choose a name to save your file as and press enter: ")
-        with open("./files/"+response+".cap", 'w') as file:
+        with open("./captures/"+response+".cap", 'w') as file:
             file.write(roll_captures[1])
-        print "Saved file as: ./files/"+response+".cap  You can manually replay this later with -s -u"
+        print "Saved file as: ./captures/"+response+".cap  You can manually replay this later with -s -u"
 #------------------End Roll Code-------------------------#
 
 
@@ -54,10 +54,10 @@ def replayLiveCapture(d, rolling_code, rf_settings):
 
     response = raw_input( "Save this capture for later? (y/n) ")
     if response.lower() == 'y':
-        mytime = time.strftime('%X')
-        with open("./files/"+mytime+"_payload.cap", 'w') as file:
+        mytime = time.strftime('%b%d_%X')
+        with open("./captures/"+mytime+"_payload.cap", 'w') as file:
             file.write(replay_capture[0])
-        print "Saved file as: ./files/"+mytime+"_payload.cap"
+        print "Saved file as: ./captures/"+mytime+"_payload.cap"
 #---------------End Replay Live Capture-------------------#
 
 

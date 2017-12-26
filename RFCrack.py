@@ -72,7 +72,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Scan common freq:    python RFCrack.py -k
     Scan with your list: python RFCrack.py -k -f 433000000 314000000 390000000
     Incremental Scan:    python RFCrack.py -b -v 5000000
-    Send Saved Payload:  python RFCrack.py -s -u ./files/test.cap -F 315000000 -M MOD_ASK_OOK
+    Send Saved Payload:  python RFCrack.py -s -u ./captures/test.cap -F 315000000 -M MOD_ASK_OOK
     With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -i
 
     Useful arguments:
@@ -91,7 +91,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Other Notes:
     ------------------------
     Directories Explained:
-    Captures get saved to ./files directory by default!
+    Captures get saved to ./captures directory by default!
     Device templates are saved and loaded to ./device_templates by default
     Scanning logs are saved to ./scanning_logs named based on date and time of scanning start
 
@@ -185,7 +185,7 @@ if args.instant_replay:
 
 if args.send:
     if args.uploaded_payload == None:
-        print("Send requires -u argument for an upload file path  Example: ./files/payload.cap")
+        print("Send requires -u argument for an upload file path  Example: ./captures/payload.cap")
     else:
         attacks.replaySavedCapture(d, args.uploaded_payload)
 

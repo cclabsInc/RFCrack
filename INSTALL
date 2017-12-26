@@ -1,4 +1,4 @@
-#RFcrack tested on OSX, should also work fine on linux distros
+#RFCrack tested on OSX, should also work fine on Linux distros
 #Install Pip:
 easy install pip
 
