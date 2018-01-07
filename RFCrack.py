@@ -81,7 +81,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Live Signal Identification and Comparison (2 Step Process example):
     -------------------------------------------------------------------
     Setup sniffer:      python RFCrack.py -k -c -f 390000000
-    Setup Analysis:     python RFCrack.py -c -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07ffe0007c -n
+    Setup Analysis:     python RFCrack.py -c -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07f -n
 
     Experimental Code Added and in Testing: (Dont Ask until its out of Experimental status)
     ---------------------------------------------------------------------------------------
