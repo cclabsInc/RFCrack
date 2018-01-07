@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
-    Release: 1.3
+    Release: 1.3 (Check Wiki for Version Updates)
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
