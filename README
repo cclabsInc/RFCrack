@@ -16,7 +16,7 @@
     CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
-    Release: 1.2
+    Release: 1.3
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
@@ -25,9 +25,9 @@
     between any physical device that communicates over sub Ghz frequencies. IoT devices,
     Cars, Alarm Systems etc... Testing was done with the Yardstick One on OSX, but
     RFCrack should work fine in linux. Support for other RF related testing will be
-    added as needed in my testing. I am currently researching keyless Entry bypasses.
-    Keyless entry functionality will be added in the future with additional hardware
-    requirements for advanced attacks.
+    added as needed in my testing. I am currently researching keyless Entry bypasses and
+    other signal analysis functionality. New functionality will be added in the future with
+    additional hardware requirements for some advanced attacks.
 
     Feel free to use this software as is for personal use only. Do not use this code
     in other projects or in commercial products. I hold no liability for your actions
@@ -43,12 +43,11 @@
     - Jamming -j -F
     - Scanning incrementally through frequencies -b -v -F
     - Scanning common frequencies -k
+    - Compare Live incoming signals to previous signal -k -c -f -u
 
     Future Functionality(Currently Researching)
     -------------------------------------------
-    - Keyless Entry/EngineStart bypass with SDR
     - Any Suggestions based on realistic use-cases you want me to add??
-    - Add in more configuration for changing timing and logging
 
 
     Usage Examples:
@@ -63,6 +62,16 @@
     Send Saved Payload:  python RFCrack.py -s -u ./captures/test.cap -F 315000000 -M MOD_ASK_OOK
     With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -r
 
+    Live Signal Identification and Comparison (Use 2 Console Windows):
+    -----------------------------------------------------------------
+    Setup sniffer:      python RFCrack.py -k -c -f 390000000
+    Setup Analysis:     python RFCrack.py -c -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07ffe0007c -n
+
+    Experimental Code Added and in Testing: (Dont Ask until its out of Experimental status)
+    ---------------------------------------------------------------------------------------
+    deBruijn attack:     python RFCrack.py -D
+    Log Analysis
+
     Useful arguments:
     ------------------------
     -M Change modulation, usually MOD_2FSK or MOD_ASK_OOK
@@ -76,17 +85,23 @@
     -d Save your current device settings into a loadable template after attack completes
     -l Load previously saved device configuration with attack
 
-    Other Notes:
-    ------------------------
     Directories Explained:
-    Captures get saved to ./captures directory by default!
+    ----------------------
+    Saved captures get saved to ./captures directory by default!
+    Live signal identification captures also saved to ./captures directory in capturedClicks.log
     Device templates are saved and loaded to ./device_templates by default
     Scanning logs are saved to ./scanning_logs named based on date and time of scanning start
+    Graph comparison images are saved to imageOutput in 2 formats
+     - Live: LiveComparison.png will just be written over on each signal Analysis
+     - Log analysis: Comparison1 Comparison2 format is used and written over on each log analysis
 
-    Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
-    but it works. Just use the keyfob near the yardsticks. It will also require 2 yardsticks,
-    one for sniffing while the other one is jamming.
+    Other Notes:
+    ------------------------
+    Understand that Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
+    but it works. Just use the keyfob near the yardsticks as if you were stalking your target.
+    It will also require 2 yardsticks, one for sniffing while the other one is jamming. Yardsticks do not
+    send and receive at the same time.
 
     And a final note, this is my own test bench for doing research and dev, if you have ideas
-    to make it better based on realistic use case scenarios, feel free to reach out to me.
-    Right now I am working on keyless entry attacks which I will implement into this later.
+    to make RFCrack better based on realistic use case scenarios, feel free to reach out to me If
+    the ideas are realistic, well thought out, and re-useable use cases I will implement them.

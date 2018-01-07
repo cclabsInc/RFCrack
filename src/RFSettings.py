@@ -2,7 +2,7 @@ import sys
 sys.dont_write_bytecode = True
 
 class RFSettings():
-    "This class is used to setup RFCat settings needed for listening, jamming and sending"
+    '''This class is used to setup RFCat settings needed for listening, jamming and sending'''
     def __init__(self, frequency, baud_rate, channel_bandwidth, modulation_type, upper_rssi, lower_rssi, channel_spacing, deviation):
 
         self.frequency = frequency
@@ -15,6 +15,7 @@ class RFSettings():
         self.deviation = deviation
 
     def saveDeviceSettingsTemplate(self, rf_settings, device_name):
+        '''Saves your current RF settings to a file in the device_templates folder which can be loaded in a later attack'''
         with open("./device_templates/"+device_name+".config", 'w') as file:
             for key, value in rf_settings.__dict__.items():
                 if not key.startswith("__"):
@@ -23,6 +24,7 @@ class RFSettings():
             print "Saved file as: ./device_templates/"+device_name+".config"
 
     def loadDeviceSettingsTemplate(self, file_data):
+        '''Loads your previously saved working settings for attack against a device'''
         for data in file_data:
             if "frequency" in data:
                 frequency = self.splitData(data)
@@ -56,6 +58,7 @@ class RFSettings():
         return value
 
     def printSettings(self):
+        '''Prints the current RFCat Settings in use'''
         print "The following settings are in use:"
         print "Frequency: " +str(self.frequency)
         print "Baud_rate: " +str(self.baud_rate)
