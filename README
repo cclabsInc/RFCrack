@@ -69,8 +69,8 @@
 
     Experimental Code Added and in Testing: (Dont Ask until its out of Experimental status)
     ---------------------------------------------------------------------------------------
-    deBruijn attack:     python RFCrack.py -D
-    Log Analysis
+    deBruijn attack:     python RFCrack.py -D -F 315000000 (being tested and modified)
+    Log Analysis:        Not linked up yet, working through it with some other attacks first
 
     Useful arguments:
     ------------------------
