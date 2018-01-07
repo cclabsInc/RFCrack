@@ -86,7 +86,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Experimental Code Added and in Testing: (Dont Ask until its out of Experimental status)
     ---------------------------------------------------------------------------------------
     deBruijn attack:     python RFCrack.py -D -F 315000000 (being tested and modified)
-    Log Analysis:        Not linked up yet, working through it with some other attacks first
+    Log Analysis:        Not linked up yet, working through it with some other attacks.
 
     Useful arguments:
     ------------------------
