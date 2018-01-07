@@ -97,10 +97,10 @@
 
     Other Notes:
     ------------------------
-    Understand that Rolling code is hit or miss due to its nature with jamming and sniffing at the same time,
-    but it works. Just use the keyfob near the yardsticks as if you were stalking your target.
-    It will also require 2 yardsticks, one for sniffing while the other one is jamming. Yardsticks do not
-    send and receive at the same time.
+    Understand that Rolling code is hit or miss due to its nature with jamming and sniffing
+    at the same time, but it works. Just use the keyfob near the yardsticks as if you were
+    stalking your target. It will also require 2 yardsticks, one for sniffing while the other
+    one is jamming. Yardsticks do not send and receive at the same time.
 
     And a final note, this is my own test bench for doing research and dev, if you have ideas
     to make RFCrack better based on realistic use case scenarios, feel free to reach out to me If
