@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
     YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
-    Release: 1.3 (Check Wiki for Version Updates)
+    Release: 1.4 (Check Wiki for Version Updates)
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
@@ -49,7 +49,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
 
 
     Current supported Functionality:
-    --------------------------------
+    ---------------------------------
     - Replay attacks -i -F
     - Send Saved Payloads -s -u
     - Rolling code bypass attacks -r -F -M
@@ -57,17 +57,12 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     - Jamming -j -F
     - Scanning incrementally through frequencies -b -v -F
     - Scanning common frequencies -k
-    - Live compare incoming signals to previous signal -k -c -f -u
-
-    Future Functionality(Currently Researching)
-    -------------------------------------------
-    - Keyless Entry/EngineStart bypass with SDR
-    - Any Suggestions based on realistic use-cases you want me to add??
-    - Add in more configuration for changing timing and logging
+    - Compare Live incoming signals to previous signal -k -c -f -u
+    - Graph Signal -n -g -u
 
 
     Usage Examples / Attacks:
-    ---------------
+    -------------------------
     Live Replay:         python RFCrack.py -i
     Rolling Code:        python RFCrack.py -r -M MOD_2FSK -F 314350000
     Adjust RSSI Values:  python RFCrack.py -r -M MOD_2FSK -F 314350000 -U -100 -L -10
@@ -76,17 +71,13 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Scan with your list: python RFCrack.py -k -f 433000000 314000000 390000000
     Incremental Scan:    python RFCrack.py -b -v 5000000
     Send Saved Payload:  python RFCrack.py -s -u ./captures/test.cap -F 315000000 -M MOD_ASK_OOK
-    With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -i
+    With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -r
+    Graph a Signal:      python RFCrack.py -n -g -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07ffe0007c
 
-    Live Signal Identification and Comparison (2 Step Process example):
-    -------------------------------------------------------------------
+    Live Signal Identification and Comparison (Use 2 Console Windows):
+    -----------------------------------------------------------------
     Setup sniffer:      python RFCrack.py -k -c -f 390000000
     Setup Analysis:     python RFCrack.py -c -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07f -n
-
-    Experimental Code Added and in Testing: (Dont Ask until its out of Experimental status)
-    ---------------------------------------------------------------------------------------
-    deBruijn attack:     python RFCrack.py -D -F 315000000 (being tested and modified)
-    Log Analysis:        Not linked up yet, working through it with some other attacks.
 
     Useful arguments:
     ------------------------
@@ -100,7 +91,8 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     -s Send packet from a file source
     -d Save your current device settings into a loadable template
     -l Load previously saved device configuration with attack
-
+    -n Your using functionality that does not require a yardstick plugged in
+    -u Use saved data in your attack
 
     Directories Explained:
     ----------------------
@@ -140,6 +132,7 @@ parser.add_argument('-d', "--save_device_settings",action='store_true', help=arg
 parser.add_argument('-l', "--load_device_settings", help=argparse.SUPPRESS)
 parser.add_argument('-c', "--compare",action='store_true', help=argparse.SUPPRESS)
 parser.add_argument('-n', "--no_instance",action='store_true', help=argparse.SUPPRESS)
+parser.add_argument('-g', "--graph_signal",action='store_true', help=argparse.SUPPRESS)
 parser.add_argument('-D', "--de_bruijn",action='store_true', help=argparse.SUPPRESS)
 parser.add_argument('-B', "--baud_rate", default=4800, help=argparse.SUPPRESS, type=int)
 parser.add_argument('-U', "--upper_rssi", default=-100, help=argparse.SUPPRESS, type=int)
@@ -224,5 +217,11 @@ if args.compare and args.uploaded_payload != None:
     my_clicker = Clicker.Clicker(args.uploaded_payload)
     utilities.logTail(my_clicker)
 
+if args.graph_signal and args.uploaded_payload != None:
+    my_clicker = Clicker.Clicker(args.uploaded_payload)
+    captured_payload_binary = my_clicker.payloadsToBinary(my_clicker.captured_payload)
+    my_clicker.createGraph(captured_payload_binary,0)
+    my_clicker.outputImagesComparisons(1)
+    my_clicker.openImage('./imageOutput/Graph1.png')
 if args.de_bruijn:
     attacks.deBruijn(d)

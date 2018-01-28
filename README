@@ -44,14 +44,11 @@
     - Scanning incrementally through frequencies -b -v -F
     - Scanning common frequencies -k
     - Compare Live incoming signals to previous signal -k -c -f -u
-
-    Future Functionality(Currently Researching)
-    -------------------------------------------
-    - Any Suggestions based on realistic use-cases you want me to add??
+    - Graph Signal -n -g -u
 
 
-    Usage Examples:
-    ---------------
+    Usage Examples / Attacks:
+    -------------------------
     Live Replay:         python RFCrack.py -i
     Rolling Code:        python RFCrack.py -r -M MOD_2FSK -F 314350000
     Adjust RSSI Values:  python RFCrack.py -r -M MOD_2FSK -F 314350000 -U -100 -L -10
@@ -61,16 +58,13 @@
     Incremental Scan:    python RFCrack.py -b -v 5000000
     Send Saved Payload:  python RFCrack.py -s -u ./captures/test.cap -F 315000000 -M MOD_ASK_OOK
     With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -r
+    Graph a Signal:      python RFCrack.py -n -g -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07ffe0007c
 
     Live Signal Identification and Comparison (Use 2 Console Windows):
     -----------------------------------------------------------------
     Setup sniffer:      python RFCrack.py -k -c -f 390000000
     Setup Analysis:     python RFCrack.py -c -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07f -n
 
-    Experimental Code Added and in Testing: (Dont Ask until its out of Experimental status)
-    ---------------------------------------------------------------------------------------
-    deBruijn attack:     python RFCrack.py -D -F 315000000 (being tested and modified)
-    Log Analysis:        Not linked up yet, working through it with some other attacks.
 
     Useful arguments:
     ------------------------
@@ -84,6 +78,8 @@
     -s Send packet from a file source
     -d Save your current device settings into a loadable template after attack completes
     -l Load previously saved device configuration with attack
+    -n Your using functionality that does not require a yardstick plugged in
+    -u Use saved data in your attack
 
     Directories Explained:
     ----------------------

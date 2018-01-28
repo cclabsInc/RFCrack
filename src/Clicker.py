@@ -100,14 +100,13 @@ class Clicker():
         if live:
             pylab.savefig("./imageOutput/LiveComparison.png")
         else:
-            pylab.savefig("./imageOutput/Comparison"+str(count)+".png")
-        #print ("Created ./imageOutput/Comparison"+str(count)+".png comparison")
+            pylab.savefig("./imageOutput/Graph"+str(count)+".png")
+
 
     def payloadsToBinary(self, payload):
         '''Converts hex data into binary and back into lists of binary numbers'''
         binary = bin(int(payload,16))[2:]
         results = map(int,list(str(binary)))
-        #print results
         return results
 
     def getHighestPercent(self, myDictionary):
