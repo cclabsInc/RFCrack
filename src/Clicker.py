@@ -117,6 +117,7 @@ class Clicker():
     def openImage(self, path):
         '''Opens and image from the hardrive based on the path sent in'''
         imageViewerFromCommandLine = {'linux':'eog',
+                                      'linux2':'eog',
                                       'win32':'explorer',
                                       'darwin':'open'}[sys.platform]
         subprocess.call([imageViewerFromCommandLine, path])
