@@ -29,7 +29,8 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Developer: @Ficti0n - http://ConsoleCowboys.com
     CCLabs: http://cclabs.io
     Blog: console-cowboys.blogspot.com
-    YouTube Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
+    Release Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
+    Reversing Signals With RFCrack: https://www.youtube.com/watch?v=XqKoVFyOst0
     Release: 1.4 (Check Wiki for Version Updates)
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
