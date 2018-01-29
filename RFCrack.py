@@ -73,7 +73,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Incremental Scan:    python RFCrack.py -b -v 5000000
     Send Saved Payload:  python RFCrack.py -s -u ./captures/test.cap -F 315000000 -M MOD_ASK_OOK
     With Loaded Config:  python RFCrack.py -l ./device_templates/doorbell.config -r
-    Graph a Signal:      python RFCrack.py -n -g -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07ffe0007c
+    Graph a Signal:      python RFCrack.py -n -g -u 1f0fffe0fffc01ff803ff007fe0fffc1fff83fff07
 
     Live Signal Identification and Comparison (Use 2 Console Windows):
     -----------------------------------------------------------------
