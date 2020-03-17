@@ -6,7 +6,8 @@ easy install pip
 sudo pip install bitstring
 
 #Install RFCat
-git clone https://github.com/atlas0fd00m/rfcat.git
+Per a note by serolee use the following github version untill they release python3 and I can recode this with that: 
+git clone https://github.com/atlas0fd00m/rfcat/tree/4a446c8b527f178eeaef8670c306cda320890347
 cd rfcat/
 sudo python setup.py install
 cd ../
