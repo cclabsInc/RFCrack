@@ -1,7 +1,7 @@
 import time, os
-import findDevices
-import RFFunctions as tools
-import Clicker
+from . import findDevices
+from . import RFFunctions as tools
+from . import Clicker
 
 #-----------------Start Log Tailing ----------------#
 def logTail(my_clicker):
