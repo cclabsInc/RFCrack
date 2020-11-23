@@ -17,15 +17,15 @@ def capturePayload(d, rolling_code, rf_settings):
     while True:
         try:
             y, z = d.RFrecv()
-            capture = y.encode('hex')
-            signal_strength= 0 - ord(str(d.getRSSI()))
+            capture = y.hex()
+            signal_strength= 0 - ord(d.getRSSI())
         except ChipconUsbTimeoutException:
             pass
 
         #This block is used for rolling code things
         if rolling_code and capture:           #If there is a good capture and we are attacking rollingCode execute this block
-            print "SIGNAL STRENGTH: " + str(signal_strength)
-            print "RF CAPTURE: \n" + capture +"\n"
+            print("SIGNAL STRENGTH: " + str(signal_strength))
+            print("RF CAPTURE: \n" + capture +"\n")
             decision = determineRealTransmission(signal_strength, rf_settings)
             if decision:
                 roll_captures.append(capture)  #add key with good decision to the list
@@ -39,10 +39,10 @@ def capturePayload(d, rolling_code, rf_settings):
 
         #This block is when just capturing and returning, no rolling code
         elif capture and not rolling_code:
-            print "SIGNAL STRENGTH: " + str(signal_strength)
-            print "RF CAPTURE: \n" + capture +"\n"
+            print("SIGNAL STRENGTH: " + str(signal_strength))
+            print("RF CAPTURE: \n" + capture +"\n")
 
-            response = raw_input( "\"Do you want to return the above payload? (y/n)")
+            response = input( "\"Do you want to return the above payload? (y/n)")
             if response.lower() == 'y':
                 break
             if response.lower() == 'n':
@@ -79,7 +79,7 @@ def parseDeviceSettings(file_data):
     settings = []
     for data in file_data:
         settings.append(re.split(':', data))
-    print settings
+    print(settings)
     return settings
 
 
@@ -90,7 +90,7 @@ def printFormatedHex(payload):
 
     formatedPayload = ""
     if (len(payload) % 2 == 0):
-        print "The following payload is currently being formated: " + payload
+        print("The following payload is currently being formated: " + payload)
         iterator = iter(payload)
         for i in iterator:
             formatedPayload += ('\\x'+i + next(iterator))
@@ -117,9 +117,9 @@ def turnToBytes(binary):
 #------------Send Transmission--------------------#
 def sendTransmission(payload, d):
     ''' Expects formated data for sending with RFXMIT'''
-    print "Sending payload... "
+    print("Sending payload... ")
     d.RFxmit(payload,10)
-    print 'Transmission Complete'
+    print("Transmission Complete")
 
 #-------------------Parse the log file------------#
 def parseSignalsFromLog(log_file):

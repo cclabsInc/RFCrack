@@ -207,7 +207,7 @@ if args.send:
         attacks.replaySavedCapture(d, args.uploaded_payload)
 
 if args.save_device_settings:
-    device_name = raw_input( "What would you like to name the device template: ")
+    device_name = input( "What would you like to name the device template: ")
     rf_settings.saveDeviceSettingsTemplate(rf_settings, device_name)
 
 if args.known_scanner and args.compare:
