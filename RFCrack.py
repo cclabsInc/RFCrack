@@ -31,7 +31,7 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Blog: console-cowboys.blogspot.com
     Release Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Reversing Signals With RFCrack: https://www.youtube.com/watch?v=XqKoVFyOst0
-    Release: 1.4 (Check Wiki for Version Updates)
+    Release: 1.5_Temp (This update is syntactical for python3 untested)
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
@@ -207,7 +207,7 @@ if args.send:
         attacks.replaySavedCapture(d, args.uploaded_payload)
 
 if args.save_device_settings:
-    device_name = raw_input( "What would you like to name the device template: ")
+    device_name = input( "What would you like to name the device template: ")
     rf_settings.saveDeviceSettingsTemplate(rf_settings, device_name)
 
 if args.known_scanner and args.compare:

@@ -19,9 +19,9 @@ class RFSettings():
         with open("./device_templates/"+device_name+".config", 'w') as file:
             for key, value in rf_settings.__dict__.items():
                 if not key.startswith("__"):
-                    print(str(key)+ ":" +str(value))
+                    print(f"{str(key)} : {str(value)}")
                     file.write(str(key)+ ":" +str(value) +"\n")
-            print "Saved file as: ./device_templates/"+device_name+".config"
+            print(f"Saved file as: ./device_templates/{device_name}.config")
 
     def loadDeviceSettingsTemplate(self, file_data):
         '''Loads your previously saved working settings for attack against a device'''
@@ -59,12 +59,12 @@ class RFSettings():
 
     def printSettings(self):
         '''Prints the current RFCat Settings in use'''
-        print "The following settings are in use:"
-        print "Frequency: " +str(self.frequency)
-        print "Baud_rate: " +str(self.baud_rate)
-        print "Channel_bandwidth: " +str(self.channel_bandwidth)
-        print "Modulation_type: " +str(self.modulation_type)
-        print "Upper_rssi: " +str(self.upper_rssi)
-        print "Lower_rssi: " +str(self.lower_rssi)
-        print "Channel_spacing: " +str(self.channel_spacing)
-        print "Deviation: " +str(self.deviation)
+        print ("The following settings are in use:")
+        print (f"Frequency: {str(self.frequency)}")
+        print (f"Baud_rate: {str(self.baud_rate)}")
+        print (f"Channel_bandwidth: {str(self.channel_bandwidth)}")
+        print (f"Modulation_type: {str(self.modulation_type)}")
+        print (f"Upper_rssi: {str(self.upper_rssi)}")
+        print (f"Lower_rssi: {str(self.lower_rssi)}")
+        print (f"Channel_spacing: {str(self.channel_spacing)}")
+        print (f"Deviation: {str(self.deviation)}")

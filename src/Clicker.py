@@ -31,7 +31,7 @@ class Clicker():
 
         #Get binary output of the payload
         captured_payload_binary  = self.payloadsToBinary(self.captured_payload)
-        print "----------Start Signals In Press--------------"
+        print("----------Start Signals In Press--------------")
         for presses in self.keyfob_payloads:
             for keyfob_payload in presses:
                 #Get binary output of the keyfob captures
@@ -44,8 +44,8 @@ class Clicker():
                 percent = tools.similar(one,two)
                 graphToPercent[keyfob_payload] = percent
 
-                print "Percent Chance of Match for press is: %.2f" % percent
-        print "----------End Signals In Press------------"
+                print(f"Percent Chance of Match for press is: {percent}")
+        print("----------End Signals In Press------------")
         #Send dictionaries of percents and return the signal with the highest % comparison
         keyfob_payload = self.getHighestPercent(graphToPercent)
         keyfob_programming_binary = self.payloadsToBinary(keyfob_payload)
@@ -55,7 +55,7 @@ class Clicker():
         plt.close()
         self.openImage('./imageOutput/LiveComparison.png')
 
-        print "For Visual of the last signal comparison go to ./imageOutput/LiveComparison.png"
+        print("For Visual of the last signal comparison go to ./imageOutput/LiveComparison.png")
 
 
     def createImageGraph(self):
@@ -75,7 +75,7 @@ class Clicker():
                 two =''.join(str(x) for x in keyfob_programming_binary)
 
                 percent = tools.similar(one,two)
-                print "Percent Chance of Match for press is: %.2f" % percent
+                print(f"Percent Chance of Match for press is: {percent}")
 
                 self.createGraph(captured_payload_binary, keyfob_programming_binary)
                 self.outputImagesComparisons(count)

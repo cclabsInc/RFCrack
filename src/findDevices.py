@@ -14,12 +14,12 @@ def bruteForceFreq(d, rf_settings, interval, clicker=False):
     filename = "./scanning_logs/"+mytime+".log"
 
     while not keystop():
-        print "Currently Scanning: " + str(current_freq)+ " To cancel hit enter and wait a few seconds"
+        print (f"Currently Scanning: {str(current_freq)} To cancel hit enter and wait a few seconds")
         sniffFrequency(d, current_freq, filename, clicker)
 
         current_freq +=interval
         d.setFreq(current_freq)
-    print "Saved logfile as: ./scanning_logs/"+mytime+".log"
+    print (f"Saved logfile as: ./scanning_logs/{mytime}.log")
 
 def searchKnownFreqs(d, known_frequencies, clicker=False):
     '''Sniffs on a rotating list of known frequences from the default list
@@ -29,13 +29,13 @@ def searchKnownFreqs(d, known_frequencies, clicker=False):
 
         for current_freq in known_frequencies:
             d.setFreq(current_freq)
-            print "Currently Scanning: " + str(current_freq)+" To cancel hit enter and wait a few seconds"
-            print
+            print(f"Currently Scanning: {str(current_freq)} To cancel hit enter and wait a few seconds")
+            #print <-- wtf do I have a print here for? removed see if it breaks something
             if clicker:
                 sniffFrequency(d, current_freq, "./captures/capturedClicks.log", clicker)
             else:
                 sniffFrequency(d, current_freq, filename, clicker)
-    print "Saved logfile as: " + filename
+    print(f"Saved logfile as: {filename}")
 
 def sniffFrequency(d, current_freq, filename, clicker):
     ''' Sniffs on a frequency, requires a RFCat Class with proper info set for listening'''
@@ -44,8 +44,8 @@ def sniffFrequency(d, current_freq, filename, clicker):
         while True:
             try:
                 y, z = d.RFrecv()
-                capture = y.encode('hex')
-                print capture
+                capture = y.hex()
+                print(capture)
                 saveLogs(current_freq, capture, filename)
             except ChipconUsbTimeoutException:
                 pass
@@ -53,8 +53,8 @@ def sniffFrequency(d, current_freq, filename, clicker):
     else:
         try:
             y, z = d.RFrecv(timeout=3000)
-            capture = y.encode('hex')
-            print capture
+            capture = y.hex()
+            print(capture)
             saveLogs(current_freq, capture, filename)
         except ChipconUsbTimeoutException:
             pass

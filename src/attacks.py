@@ -14,25 +14,25 @@ def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
     jam.jamming(j, "start", rf_settings, rolling_code, jamming_variance)
     roll_captures, signal_strength = tools.capturePayload(d, rolling_code, rf_settings)
     print("Waiting to capture your rolling code transmission")
-    print signal_strength
-    print roll_captures
+    print(signal_strength)
+    print(roll_captures)
 
     payloads = tools.createBytesFromPayloads(roll_captures)
 
     time.sleep(1)
     jam.jamming(j, "stop", rf_settings, rolling_code, jamming_variance)
 
-    print "Sending First Payload "
+    print("Sending First Payload ")
     tools.sendTransmission(payloads[0] ,d)
-    response = raw_input( "Ready to send second Payload?? (y/n) ")
+    response = input( "Ready to send second Payload?? (y/n) ")
     if response.lower() == "y":
         tools.sendTransmission(payloads[1] ,d)
 
     else:
-        response = raw_input( "Choose a name to save your file as and press enter: ")
+        response = input( "Choose a name to save your file as and press enter: ")
         with open("./captures/"+response+".cap", 'w') as file:
             file.write(roll_captures[1])
-        print "Saved file as: ./captures/"+response+".cap  You can manually replay this later with -s -u"
+        print(f"Saved file as: ./captures/{response}.cap  You can manually replay this later with -s -u")
 #------------------End Roll Code-------------------------#
 
 
@@ -44,20 +44,20 @@ def replayLiveCapture(d, rolling_code, rf_settings):
     replay_capture, signal_strength = tools.capturePayload(d,rolling_code, rf_settings)
     replay_capture = [replay_capture]
 
-    response = raw_input( "Replay this capture? (y/n) ")
+    response = input( "Replay this capture? (y/n) ")
     if response.lower() == 'y':
         payloads = tools.createBytesFromPayloads(replay_capture)
         for payload in payloads:
-            print "WAITING TO SEND"
+            print("WAITING TO SEND")
             time.sleep(1)
             tools.sendTransmission(payload ,d)
 
-    response = raw_input( "Save this capture for later? (y/n) ")
+    response = input( "Save this capture for later? (y/n) ")
     if response.lower() == 'y':
         mytime = time.strftime('%b%d_%X')
         with open("./captures/"+mytime+"_payload.cap", 'w') as file:
             file.write(replay_capture[0])
-        print "Saved file as: ./captures/"+mytime+"_payload.cap"
+        print(f"Saved file as: ./captures/{mytime}_payload.cap")
 #---------------End Replay Live Capture-------------------#
 
 
@@ -66,7 +66,7 @@ def replaySavedCapture(d, uploaded_payload):
     '''Used to import an old capture and replay it from a file'''
     with open(uploaded_payload) as f:
         payloads = f.readlines()
-        print payloads
+        print(payloads)
         payloads = tools.createBytesFromPayloads(payloads)
 
         response = raw_input( "Send once, or forever? (o/f) Default = o ")
@@ -75,13 +75,13 @@ def replaySavedCapture(d, uploaded_payload):
             print("\nNOTE: TO STOP YOU NEED TO CTRL-Z and Unplug/Plug IN YARDSTICK-ONE\n")
             while True:
                 for payload in payloads:
-                    print "WAITING TO SEND"
+                    print("WAITING TO SEND")
                     time.sleep(1)          #You may not want this if you need rapid fire tx
                     tools.sendTransmission(payload ,d)
 
         else:
             for payload in payloads:
-                    print "WAITING TO SEND"
+                    print("WAITING TO SEND")
                     time.sleep(1)
                     tools.sendTransmission(payload ,d)
 
@@ -96,7 +96,7 @@ def deBruijn(d):
 
     binary = utilities.deBruijn(2, int(response))
     payload = tools.turnToBytes(binary)
-    print('Sending ' +str(len(binary))+ ' bits length binary deBruijn payload formated to bytes')
+    print(f"Sending {str(len(binary))} bits length binary deBruijn payload formated to bytes")
 
     tools.sendTransmission(payload ,d)
 
