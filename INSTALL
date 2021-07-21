@@ -1,14 +1,12 @@
-#RFCrack tested on OSX, should also work fine on Linux distros
+#RFCrack Currently Being Tested on Ubuntu 20 (Updating this file now.. Unverified)
 #Install Pip:
-easy install pip
+sudo apt install python3-pip
 
 #Install BitString
 sudo pip install bitstring
 
 #Install RFCat
-Per a note by serolee use the following github version untill they release python3 and I can recode this with that: 
-git clone https://github.com/atlas0fd00m/rfcat/tree/4a446c8b527f178eeaef8670c306cda320890347
-cd rfcat/
+git clone https://github.com/atlas0fd00m/rfcat/
 sudo python setup.py install
 cd ../
 
@@ -21,7 +19,7 @@ sudo python setup.py install
 pip install libusb
 
 #Install Matolib:
-sudo easy_install matplotlib
+pip install matplotlib
 
 #Install Numpy:
 pip install numpy
@@ -30,3 +28,4 @@ pip install numpy
 rfcat -r
 
 #That should be all you need
+
