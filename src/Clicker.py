@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.pylab as pylab
 import numpy as np
 import sys,subprocess
-import RFFunctions as tools
+from . import RFFunctions as tools
 sys.dont_write_bytecode = True
 
 #----------Setup Graphing Size-----------#

@@ -1,6 +1,6 @@
 
-import RFFunctions as tools
-import findDevices, jam, utilities
+from . import RFFunctions as tools
+from . import findDevices, jam, utilities
 import time, sys
 sys.dont_write_bytecode = True
 #-----------------Rolling Code-------------------------#
@@ -69,7 +69,7 @@ def replaySavedCapture(d, uploaded_payload):
         print(payloads)
         payloads = tools.createBytesFromPayloads(payloads)
 
-        response = raw_input( "Send once, or forever? (o/f) Default = o ")
+        response = input( "Send once, or forever? (o/f) Default = o ")
 
         if response.lower() == "f":
             print("\nNOTE: TO STOP YOU NEED TO CTRL-Z and Unplug/Plug IN YARDSTICK-ONE\n")
@@ -92,7 +92,7 @@ def replaySavedCapture(d, uploaded_payload):
 # https://en.wikipedia.org/wiki/De_Bruijn_sequence
 def deBruijn(d):
     '''Send Binary deBruijn payload to bruteforce a signal'''
-    response = raw_input( "What length deBruijn would you like to try: ")
+    response = input( "What length deBruijn would you like to try: ")
 
     binary = utilities.deBruijn(2, int(response))
     payload = tools.turnToBytes(binary)
