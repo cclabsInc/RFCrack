@@ -53,14 +53,14 @@ def replayLiveCapture(d, rolling_code, rf_settings):
             print("WAITING TO SEND")
             time.sleep(1)
             tools.sendTransmission(payload ,d)
-
+            d.setModeIDLE()
+            
     response = input( "Save this capture for later? (y/n) ")
     if response.lower() == 'y':
         mytime = time.strftime('%b%d_%X')
         with open("./captures/"+mytime+"_payload.cap", 'w') as file:
             file.write(replay_capture[0])
         print(f"Saved file as: ./captures/{mytime}_payload.cap")
-        d.setModeIDLE()
 #---------------End Replay Live Capture-------------------#
 
 
