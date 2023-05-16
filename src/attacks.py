@@ -2,7 +2,6 @@
 from . import RFFunctions as tools
 from . import findDevices, jam, utilities
 import time, sys
-import keyboard
 sys.dont_write_bytecode = True
 #-----------------Rolling Code-------------------------#
 def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
@@ -75,16 +74,13 @@ def replaySavedCapture(d, uploaded_payload):
         response = input( "Send once, or forever? (o/f) Default = o ")
 
         if response.lower() == "f":
-            print("\nNOTE: TO STOP YOU NEED TO hold ctrl+alt\n")
-            while True:
+            print("\nNOTE: TO STOP hit ENTER\n")
+            while not keystop():
                 for payload in payloads:
                     print("WAITING TO SEND")
                     time.sleep(1)          #You may not want this if you need rapid fire tx
                     tools.sendTransmission(payload ,d)
-                if keyboard.is_pressed('ctrl+alt'):
-                    print("Quitting...")
-                    d.setModeIDLE()
-                    break
+            d.setModeIDLE()
 
         else:
             for payload in payloads:
