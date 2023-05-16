@@ -76,10 +76,13 @@ def replaySavedCapture(d, uploaded_payload):
         if response.lower() == "f":
             print("\nNOTE: TO STOP hit ENTER\n")
             while not keystop():
-                for payload in payloads:
-                    print("WAITING TO SEND")
-                    time.sleep(1)          #You may not want this if you need rapid fire tx
-                    tools.sendTransmission(payload ,d)
+                try:
+                    for payload in payloads:
+                        print("WAITING TO SEND")
+                        time.sleep(1)          #You may not want this if you need rapid fire tx
+                        tools.sendTransmission(payload ,d)
+                except ChipconUsbTimeoutException:
+			            pass 	
             d.setModeIDLE()
 
         else:
