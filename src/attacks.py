@@ -29,6 +29,7 @@ def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
         tools.sendTransmission(payloads[1] ,d)
 
     else:
+        d.setModeIDLE()
         response = input( "Choose a name to save your file as and press enter: ")
         with open("./captures/"+response+".cap", 'w') as file:
             file.write(roll_captures[1])
@@ -51,7 +52,8 @@ def replayLiveCapture(d, rolling_code, rf_settings):
             print("WAITING TO SEND")
             time.sleep(1)
             tools.sendTransmission(payload ,d)
-
+            d.setModeIDLE()
+            
     response = input( "Save this capture for later? (y/n) ")
     if response.lower() == 'y':
         mytime = time.strftime('%b%d_%X')
@@ -72,19 +74,23 @@ def replaySavedCapture(d, uploaded_payload):
         response = input( "Send once, or forever? (o/f) Default = o ")
 
         if response.lower() == "f":
-            print("\nNOTE: TO STOP YOU NEED TO CTRL-Z and Unplug/Plug IN YARDSTICK-ONE\n")
-            while True:
-                for payload in payloads:
-                    print("WAITING TO SEND")
-                    time.sleep(1)          #You may not want this if you need rapid fire tx
-                    tools.sendTransmission(payload ,d)
+            print("\nNOTE: TO STOP hit ENTER\n")
+            while not keystop():
+                try:
+                    for payload in payloads:
+                        print("WAITING TO SEND")
+                        time.sleep(1)          #You may not want this if you need rapid fire tx
+                        tools.sendTransmission(payload ,d)
+                except ChipconUsbTimeoutException:
+			            pass 	
+            d.setModeIDLE()
 
         else:
             for payload in payloads:
                     print("WAITING TO SEND")
                     time.sleep(1)
                     tools.sendTransmission(payload ,d)
-
+                    d.setModeIDLE()
 #--------------- End Replay Saved Capture-------------------#
 
 
@@ -99,5 +105,5 @@ def deBruijn(d):
     print(f"Sending {str(len(binary))} bits length binary deBruijn payload formated to bytes")
 
     tools.sendTransmission(payload ,d)
-
+    d.setModeIDLE()
 #----------------- End DeBruijn Sequence Attack--------------------#
