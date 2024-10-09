@@ -11,9 +11,9 @@ import src.Clicker as Clicker
 import sys
 
 sys.dont_write_bytecode = True
-parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDescriptionHelpFormatter, description=textwrap.dedent('''\
+parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDescriptionHelpFormatter, description=textwrap.dedent(r'''
 
-                ___                  _        ___            _
+   ___                  _        ___            _
   / __|___ _ _  ___ ___| |___   / __|_____ __ _| |__  ___ _  _ ___
  | (__/ _ \ ' \(_-</ _ \ / -_) | (__/ _ \ V  V / '_ \/ _ \ || (_-<
   \___\___/_||_/__/\___/_\___|  \___\___/\_/\_/|_.__/\___/\_, /__/
