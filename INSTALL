@@ -1,31 +1,26 @@
-#RFCrack Currently Being Tested on Ubuntu 20 (Updating this file now.. Unverified)
-#Install Pip:
+#This should work, though gave me issues in Kali where I had to use Root Env: 
+
 sudo apt install python3-pip
+sudo apt install python3-virtualenv
 
-#Install BitString
-sudo pip install bitstring
+python3 -m venv env
+source env/bin/activate
 
-#Install RFCat
-git clone https://github.com/atlas0fd00m/rfcat/
-sudo python setup.py install
-cd ../
-
-#Install PyUSB:
-git clone https://github.com/walac/pyusb.git
-cd pyusb/
-sudo python setup.py install
-
-#Install LibUSB
-pip install libusb
-
-#Install Matolib:
+pip Install rfcat
 pip install matplotlib
+pip install bitstring
+pip install libusb
+pip install pyusb
 
-#Install Numpy:
-pip install numpy
-
-#Plug in your device and run the following to verify it works:
 rfcat -r
 
-#That should be all you need
+#Or on like Kali I had to do this to avoid Root Usage: 
+sudo apt install python3-bitstring
+sudo apt install python3-matplotlib
+sudo apt-get install python libusb-1.0-0
+sudo apt install python3-pyusb
+sudo apt install python3-numpy
+sudo apt install rfcat
+
+rfcat -r
 
