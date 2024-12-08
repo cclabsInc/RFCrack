@@ -34,14 +34,17 @@ def jamming(j, action, rf_settings, rolling_code, jamming_variance=0, retries=3)
 
         if action == "start":
             print(f"Starting Jamming on: {frequency}")
+            print("Press enter to stop jamming \n")
             for attempt in range(retries):
                 try:
-                    j.setModeTX()  # start transmitting
+                    while not keystop():
+                        j.RFxmit(b"A" * 1000)  # send a continuous stream of data to jam the frequency
+
                     if not rolling_code:
-                        input("Enter to stop jamming")
                         print("done")
                         j.setModeIDLE()
                     break
+
                 except Exception as e:
                     print(f"Error during jamming attempt {attempt + 1}: {e}")
                     if attempt < retries - 1:
