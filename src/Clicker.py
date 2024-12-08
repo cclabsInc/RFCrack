@@ -106,7 +106,7 @@ class Clicker():
     def payloadsToBinary(self, payload):
         '''Converts hex data into binary and back into lists of binary numbers'''
         binary = bin(int(payload,16))[2:]
-        results = map(int,list(str(binary)))
+        results = list(map(int, list(binary)))
         return results
 
     def getHighestPercent(self, myDictionary):
