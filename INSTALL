@@ -2,6 +2,7 @@
 
 sudo apt install python3-pip
 sudo apt install python3-virtualenv
+sudo apt-get install eog
 
 python3 -m venv env
 source env/bin/activate
@@ -20,6 +21,7 @@ sudo apt install python3-matplotlib
 sudo apt-get install python libusb-1.0-0
 sudo apt install python3-pyusb
 sudo apt install python3-numpy
+sudo apt-get install eog
 sudo apt install rfcat
 
 rfcat -r
