@@ -44,12 +44,19 @@ def capturePayload(d, rolling_code, rf_settings):
         elif capture and not rolling_code:
             print(f"SIGNAL STRENGTH: {str(signal_strength)}")
             print(f"RF CAPTURE: \n {capture} \n")
-
-            response = input("\"Do you want to return the above payload? (y/n)")
-            if response.lower() == 'y':
-                break
-            if response.lower() == 'n':
-                capture =""
+            try:
+                response = input("Do you want to return the above payload? (y/n)")
+                if response.lower() == 'y':
+                    break
+                elif response.lower() == 'n':
+                    capture =""
+                else:
+                    print("You did not enter a valid response of y or n capture not saved")
+                    capture = ""
+                    
+            except Exception as e:
+                print(f"Error during input: {e}")
+                capture = ""            
 
     return capture, signal_strength
 
@@ -60,7 +67,7 @@ def determineRealTransmission(signal_strength, rf_settings):
     defined RSSI power levels'''
     if signal_strength > rf_settings.upper_rssi and signal_strength < rf_settings.lower_rssi:
         return True
-
+    return False
 
 #------------Split Captures by 4 or more 0's --------------------#
 def splitCaptureByZeros(capture):

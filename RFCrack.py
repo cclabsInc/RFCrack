@@ -1,4 +1,3 @@
-
 from rflib import *
 import src.RFFunctions as tools
 import re, time, argparse, textwrap
@@ -147,6 +146,11 @@ parser.add_argument("-V", "--deviation", default=0, help=argparse.SUPPRESS,type=
 
 args = parser.parse_args()
 
+num_provided_args = utilities.count_provided_args(args, parser)
+
+if num_provided_args == 0:
+    parser.print_help()
+    sys.exit(1)
 
 rf_settings = RFSettings.RFSettings(args.frequency,
                                     args.baud_rate,
@@ -162,7 +166,11 @@ if (args.load_device_settings != None):
         rf_settings.loadDeviceSettingsTemplate(file_data)
 
 if not args.jammer and not args.no_instance:
-    d = RfCat(idx=0)
+    try:
+        d = RfCat(idx=0)
+    except Exception as e:
+        print("Yardstick not plugged in or not detected, exiting...")
+        sys.exit(0)
     d.setFreq(int(rf_settings.frequency))
     d.setMdmDRate(rf_settings.baud_rate)
     d.setMaxPower()
@@ -214,15 +222,17 @@ if args.known_scanner and args.compare:
     print("Uses lowercase f parameter to specify a single value Frequency list")
     findDevices.searchKnownFreqs(d, args.list, args.compare)
 
-if args.compare and args.uploaded_payload != None:
+if args.compare and args.uploaded_payload is not None:
     my_clicker = Clicker.Clicker(args.uploaded_payload)
     utilities.logTail(my_clicker)
 
-if args.graph_signal and args.uploaded_payload != None:
+if args.graph_signal and args.uploaded_payload is not None:
     my_clicker = Clicker.Clicker(args.uploaded_payload)
     captured_payload_binary = my_clicker.payloadsToBinary(my_clicker.captured_payload)
-    my_clicker.createGraph(captured_payload_binary,0)
+    my_clicker.createGraph(captured_payload_binary, 0)
     my_clicker.outputImagesComparisons(1)
     my_clicker.openImage('./imageOutput/Graph1.png')
+
 if args.de_bruijn:
     attacks.deBruijn(d)
+

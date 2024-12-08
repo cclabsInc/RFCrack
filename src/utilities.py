@@ -8,24 +8,28 @@ def logTail(my_clicker):
     ''' This function acts as a linux tail function but only pulling new additions to a file since running
     it parses for payload lines which is uses in analysis and graphing'''
     capture_log = "./captures/capturedClicks.log"
-    file = open(capture_log,'r')
+    try:
+        with open(capture_log, 'r') as file:
 
-    #Find the size of the file and move to the end
-    st_results = os.stat(capture_log)
-    st_size = st_results[6]
-    file.seek(st_size)
+            #Find the size of the file and move to the end
+            st_results = os.stat(capture_log)
+            st_size = st_results[6]
+            file.seek(st_size)
 
-    while 1:
-        where = file.tell()
-        line = file.readline()
-        if not line:
-            time.sleep(1)
-            file.seek(where)
-        else:
-            if "found" not in line:
-                presses = tools.parseSignalsLive(line)
-                my_clicker.keyfob_payloads = presses
-                percent = my_clicker.liveClicks()
+            while True:
+                where = file.tell()
+                line = file.readline()
+                if not line:
+                    time.sleep(1)
+                    file.seek(where)
+                else:
+                    if "found" not in line:
+                        presses = tools.parseSignalsLive(line)
+                        my_clicker.keyfob_payloads = presses
+                        percent = my_clicker.liveClicks()
+    
+    except IOError as e:
+        print(f"Error opening or reading from {capture_log}: {e}")
 
 #-----------------End Log Tailing ----------------#
 
@@ -59,3 +63,26 @@ def deBruijn(k, n):
     return "".join(alphabet[i] for i in sequence)
 
 #-----------------End De Bruijn Creation ----------------#
+
+def count_provided_args(args, parser):
+    # Count arguments that were explicitly provided by the user
+    provided_args = 0
+    for action in parser._actions:
+        # Skip the help action
+        if action.dest == 'help':
+            continue
+        
+        # Check if the argument was provided by the user
+        if hasattr(args, action.dest):
+            value = getattr(args, action.dest)
+            
+            # For store_true actions, check if they were explicitly set
+            if action.const is not None and value == action.const:
+                provided_args += 1
+            
+            # For other arguments, check if they differ from the default
+            elif hasattr(action, 'default'):
+                if value != action.default:
+                    provided_args += 1
+    
+    return provided_args

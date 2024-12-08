@@ -16,40 +16,46 @@ class RFSettings():
 
     def saveDeviceSettingsTemplate(self, rf_settings, device_name):
         '''Saves your current RF settings to a file in the device_templates folder which can be loaded in a later attack'''
-        with open("./device_templates/"+device_name+".config", 'w') as file:
-            for key, value in rf_settings.__dict__.items():
-                if not key.startswith("__"):
-                    print(f"{str(key)} : {str(value)}")
-                    file.write(str(key)+ ":" +str(value) +"\n")
-            print(f"Saved file as: ./device_templates/{device_name}.config")
-
+        try:
+            with open("./device_templates/"+device_name+".config", 'w') as file:
+                for key, value in rf_settings.__dict__.items():
+                    if not key.startswith("__"):
+                        print(f"{str(key)} : {str(value)}")
+                        file.write(str(key)+ ":" +str(value) +"\n")
+                print(f"Saved file as: ./device_templates/{device_name}.config")
+        except IOError as e:
+            print(f"Error saving device settings: {e}")
+        
     def loadDeviceSettingsTemplate(self, file_data):
         '''Loads your previously saved working settings for attack against a device'''
-        for data in file_data:
-            if "frequency" in data:
-                frequency = self.splitData(data)
-                self.frequency = int(frequency)
-            elif "baud_rate" in data:
-                baud_rate = self.splitData(data)
-                self.baud_rate = int(baud_rate)
-            elif "channel_bandwidth" in data:
-                channel_bandwidth = self.splitData(data)
-                self.channel_bandwidth = int(channel_bandwidth)
-            elif "modulation_type" in data:
-                modulation_type = self.splitData(data)
-                self.modulation_type = modulation_type
-            elif "upper_rssi" in data:
-                upper_rssi = self.splitData(data)
-                self.upper_rssi = int(upper_rssi)
-            elif "lower_rssi" in data:
-                lower_rssi = self.splitData(data)
-                self.lower_rssi = int(lower_rssi)
-            elif "channel_spacing" in data:
-                channel_spacing = self.splitData(data)
-                self.channel_spacing = int(channel_spacing)
-            elif "deviation" in data:
-                deviation = self.splitData(data)
-                self.deviation = int(deviation)
+        try:
+            for data in file_data:
+                if "frequency" in data:
+                    frequency = self.splitData(data)
+                    self.frequency = int(frequency)
+                elif "baud_rate" in data:
+                    baud_rate = self.splitData(data)
+                    self.baud_rate = int(baud_rate)
+                elif "channel_bandwidth" in data:
+                    channel_bandwidth = self.splitData(data)
+                    self.channel_bandwidth = int(channel_bandwidth)
+                elif "modulation_type" in data:
+                    modulation_type = self.splitData(data)
+                    self.modulation_type = modulation_type
+                elif "upper_rssi" in data:
+                    upper_rssi = self.splitData(data)
+                    self.upper_rssi = int(upper_rssi)
+                elif "lower_rssi" in data:
+                    lower_rssi = self.splitData(data)
+                    self.lower_rssi = int(lower_rssi)
+                elif "channel_spacing" in data:
+                    channel_spacing = self.splitData(data)
+                    self.channel_spacing = int(channel_spacing)
+                elif "deviation" in data:
+                    deviation = self.splitData(data)
+                    self.deviation = int(deviation)
+        except Exception as e:
+            print(f"Error loading device settings: {e}")        
         self.printSettings()
 
     def splitData(self, data):

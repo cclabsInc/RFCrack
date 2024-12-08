@@ -1,0 +1,2 @@
+[console_scripts]
+rcat = rcat:init_main

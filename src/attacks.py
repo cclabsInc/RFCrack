@@ -30,9 +30,13 @@ def rollingCode(d, rf_settings, rolling_code, jamming_variance,):
 
     else:
         response = input( "Choose a name to save your file as and press enter: ")
-        with open("./captures/"+response+".cap", 'w') as file:
-            file.write(roll_captures[1])
-        print(f"Saved file as: ./captures/{response}.cap  You can manually replay this later with -s -u")
+        try:
+            with open("./captures/"+response+".cap", 'w') as file:
+                file.write(roll_captures[1])
+            print(f"Saved file as: ./captures/{response}.cap  You can manually replay this later with -s -u")
+        except IOError as e:
+            print(f"Error saving file: {e}")
+    return
 #------------------End Roll Code-------------------------#
 
 
@@ -58,6 +62,7 @@ def replayLiveCapture(d, rolling_code, rf_settings):
         with open("./captures/"+mytime+"_payload.cap", 'w') as file:
             file.write(replay_capture[0])
         print(f"Saved file as: ./captures/{mytime}_payload.cap")
+    return
 #---------------End Replay Live Capture-------------------#
 
 
@@ -83,7 +88,7 @@ def replaySavedCapture(d, uploaded_payload):
             for payload in payloads:
                     print("WAITING TO SEND")
                     time.sleep(1)
-                    tools.sendTransmission(payload ,d)
+    return                tools.sendTransmission(payload ,d)
 
 #--------------- End Replay Saved Capture-------------------#
 
