@@ -30,7 +30,13 @@ parser = argparse.ArgumentParser(add_help=True, formatter_class=argparse.RawDesc
     Blog: console-cowboys.blogspot.com
     Release Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Reversing Signals With RFCrack: https://www.youtube.com/watch?v=XqKoVFyOst0
-    Release: 1.5_Temp (This update is syntactical for python3 untested)
+    Release: 1.6 - Error Handling and Bug Fixes for Py3
+
+------------------------------------Issues --------------------------------
+    Current ISSUE with Python3:  Finally got around to using this in Python3.. 
+    Looks like setModeTX() from RFCat Does not function properly which we use for jamming.. 
+    Looking into a work around.. 
+------------------------------------Issues --------------------------------
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
     YardStick: https://goo.gl/wd88sr
