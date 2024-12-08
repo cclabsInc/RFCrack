@@ -88,8 +88,8 @@ def replaySavedCapture(d, uploaded_payload):
             for payload in payloads:
                     print("WAITING TO SEND")
                     time.sleep(1)
-    return                tools.sendTransmission(payload ,d)
-
+                    tools.sendTransmission(payload ,d)
+    return
 #--------------- End Replay Saved Capture-------------------#
 
 
