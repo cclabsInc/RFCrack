@@ -35,22 +35,19 @@ def logTail(my_clicker):
 
 
 #-----------------Start De Bruijn Creation ----------------#
-def deBruijn(k, n):
-    '''This is a function for creating the de Bruijn sequence for bruteforce attacks
-    in various lenghts n. Example code aquired from de-bruijn wiki'''
-    try:
-        _ = int(k)
+def generate_de_bruijn_sequence(k, n):
+    '''Generates the de Bruijn sequence for given k and n'''
+    if isinstance(k, str):
+        alphabet = list(k)
+        k = len(alphabet)
+    else:
         alphabet = list(map(str, range(k)))
 
-    except (ValueError, TypeError):
-        alphabet = k
-        k = len(k)
-
-    a = [0] * k * n
+    a = [0] * (k * n)
     sequence = []
 
     def db(t, p):
-        if t > n:
+        if t == n * k:
             if n % p == 0:
                 sequence.extend(a[1:p + 1])
         else:
