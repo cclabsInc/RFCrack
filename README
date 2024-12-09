@@ -22,7 +22,7 @@
     Blog: console-cowboys.blogspot.com
     Release Tutorial: https://www.youtube.com/watch?v=H7-g15YZBiI
     Reversing Signals With RFCrack: https://www.youtube.com/watch?v=XqKoVFyOst0
-    Release: 1.6 - Error Handling and Bug Fixes for Py3
+    Release: 1.6 - Error Handling and Bug Fixes for Py3 + Updated Bruijn generation code. 
 
 
     Hardware Needed: (1 Yardstick or 2 for RollingCode)
