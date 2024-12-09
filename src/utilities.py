@@ -43,12 +43,12 @@ def generate_de_bruijn_sequence(k, n):
     else:
         alphabet = list(map(str, range(k)))
 
-    a = [0] * (k * n)
+    a = [0] * (k * int(n))
     sequence = []
 
     def db(t, p):
-        if t == n * k:
-            if n % p == 0:
+        if t == int(n) * k:
+            if int(n) % p == 0:
                 sequence.extend(a[1:p + 1])
         else:
             a[t] = a[t - p]
