@@ -19,7 +19,7 @@ def capturePayload(d, rolling_code, rf_settings):
             y, z = d.RFrecv()
             capture = y.hex()
             try:
-                signal_strength= 0 - ord(str(d.getRSSI()))
+                signal_strength = 0 - int.from_bytes(d.getRSSI(), byteorder='big')
             except:
                 signal_strength = 0
         except ChipconUsbTimeoutException:
