@@ -97,12 +97,20 @@ def replaySavedCapture(d, uploaded_payload):
 # https://en.wikipedia.org/wiki/De_Bruijn_sequence
 def deBruijn(d):
     '''Send Binary deBruijn payload to bruteforce a signal'''
-    response = input( "What length deBruijn would you like to try: ")
-
-    binary = utilities.deBruijn(2, int(response))
-    payload = tools.turnToBytes(binary)
-    print(f"Sending {str(len(binary))} bits length binary deBruijn payload formated to bytes")
-
-    tools.sendTransmission(payload ,d)
-
+    try:
+        response = input( "What length deBruijn would you like to try: ")
+        length = int(response)
+    except ValueError:
+        print("Invalid input. Please enter a valid integer.")
+        return
+    try:
+        binary = utilities.generate_de_bruijn_sequence(2, response)
+        payload = tools.turnToBytes(binary)
+        
+        print(f"Sending {str(len(binary))} bits length binary deBruijn payload formated to bytes")
+        print(f'Payload used {payload}')
+        tools.sendTransmission(payload ,d)
+        
+    except Exception as e:
+        print(f"Error creating or sending deBruijn payload: {e}")
 #----------------- End DeBruijn Sequence Attack--------------------#
