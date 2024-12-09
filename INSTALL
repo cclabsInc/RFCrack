@@ -1,5 +1,6 @@
-#This should work, though gave me issues in Kali where I had to use Root Env: 
-
+#Option 1 (Via Venv mostly, had some issues)
+#This should work if you want to use ENV, though gave me issues in Kali where I had to use Root Env: 
+#-----------------------------------------------------------------------------------------------------#
 sudo apt install python3-pip
 sudo apt install python3-virtualenv
 sudo apt-get install eog
@@ -15,7 +16,12 @@ pip install pyusb
 
 rfcat -r
 
-#Or on like Kali I had to do this to avoid Root Usage: 
+
+
+
+#Option 2 (Prefered for me) 
+#Optionally I recently set it up with Apt mostly in Kali I had to do this to avoid Root Usage: 
+#---------------------------------------------------------------------------------------------
 sudo apt install python3-bitstring
 sudo apt install python3-matplotlib
 sudo apt-get install python libusb-1.0-0
