@@ -240,5 +240,10 @@ if args.graph_signal and args.uploaded_payload is not None:
     my_clicker.openImage('./imageOutput/Graph1.png')
 
 if args.de_bruijn:
-    attacks.deBruijn(d)
+    if args.uploaded_payload is None:
+        print("De Bruijn sequence generation requires -u argument for the alphabet and length. Example: -u 01 3")
+    else:
+        alphabet, length = args.uploaded_payload.split()
+        sequence = utilities.generate_de_bruijn_sequence(alphabet, int(length))
+        print(f"Generated de Bruijn sequence: {sequence}")
 
