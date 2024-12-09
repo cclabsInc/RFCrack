@@ -236,6 +236,8 @@ if args.graph_signal and args.uploaded_payload is not None:
 if args.de_bruijn:
     if args.uploaded_payload is None:
         print("De Bruijn sequence generation requires -u argument for the alphabet and length. Example: -u 01 3")
+        print("Executing Attack instead")
+        attacks.deBruijn(d)
     else:
         alphabet, length = args.uploaded_payload.split()
         sequence = utilities.generate_de_bruijn_sequence(alphabet, int(length))
