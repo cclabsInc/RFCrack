@@ -11,11 +11,6 @@
 
 
     Welcome to RFCrack - A Software Defined Radio Attack Tool
-    
-    VERSION Update: this has been updated to Python3 and should work but there are all
-                    kinds of issues I am running into with firmware versions, sdcc, rfcat
-                    etc which may also effect you.. See the RFCat documentation if you run 
-                    into issues. 
 
     Developer: @Ficti0n - http://ConsoleCowboys.com
     CCLabs: http://cclabs.io
